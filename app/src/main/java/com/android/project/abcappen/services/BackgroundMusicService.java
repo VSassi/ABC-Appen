@@ -1,4 +1,4 @@
-package com.android.project.abcappen;
+package com.android.project.abcappen.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
+
+import com.android.project.abcappen.R;
 
 public class BackgroundMusicService extends Service {
 

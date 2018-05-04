@@ -1,8 +1,10 @@
-package com.android.project.abcappen;
+package com.android.project.abcappen.services;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+
+import com.android.project.abcappen.R;
 
 public class Sounds {
 
@@ -12,7 +14,7 @@ public class Sounds {
     public Sounds(Context context){
 
         soundPool = new SoundPool(2, AudioManager.STREAM_MUSIC,0);
-        pop = soundPool.load(context,R.raw.pop_sound,1);
+        pop = soundPool.load(context, R.raw.pop_sound,1);
     }
 
     public void playPopSound(){
