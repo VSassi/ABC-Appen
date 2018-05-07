@@ -13,9 +13,7 @@ import com.android.project.abcappen.R;
 
 public class LetterDot {
     private static String LETTER_DOT_TAG = "LETTER_DOT";
-    public static int CANVAS_WIDTH = 2048;
-    public static int CANVAS_HEIGHT = 1392;
-
+    
     private Canvas canvas;
     private Drawable background;
     private char letter;
@@ -29,7 +27,7 @@ public class LetterDot {
     private Drawable[] dotLine2;
     private Drawable[] dotLine3;
 
-    public Drawable[][] dotLines = new Drawable[3][];
+    public Drawable[][] dotLines;
 
 
     public LetterDot(char letter, Canvas canvas, Context context) {
@@ -42,6 +40,7 @@ public class LetterDot {
             case 'A':
                 Log.i(LETTER_DOT_TAG, "Letter A printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_a);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 dotLine2 = new Drawable[5];
                 dotLine3 = new Drawable[4];
@@ -53,6 +52,7 @@ public class LetterDot {
             case 'B':
                 Log.i(LETTER_DOT_TAG, "Letter B printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_b);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 dotLine2 = new Drawable[10];
                 dotLine3 = new Drawable[11];
@@ -63,12 +63,14 @@ public class LetterDot {
             case 'C':
                 Log.i(LETTER_DOT_TAG, "Letter C printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_c);
+                dotLines = new Drawable[1][];
                 dotLine1 = new Drawable[16];
                 halvCircleLeft();
                 break;
             case 'D':
                 Log.i(LETTER_DOT_TAG, "Letter D printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_d);
+                dotLines = new Drawable[2][];
                 dotLine1 = new Drawable[5];
                 dotLine2 = new Drawable[15];
                 straightLineLeft();
@@ -76,12 +78,16 @@ public class LetterDot {
                 break;
             case 'E':
                 Log.i(LETTER_DOT_TAG, "Letter E printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_e);
+                dotLines = new Drawable[4][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
 
                 break;
             case 'F':
                 Log.i(LETTER_DOT_TAG, "Letter F printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_f);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
                 break;
@@ -95,11 +101,15 @@ public class LetterDot {
                 break;
             case 'K':
                 Log.i(LETTER_DOT_TAG, "Letter K printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_k);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
                 break;
             case 'L':
                 Log.i(LETTER_DOT_TAG, "Letter L printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_l);
+                dotLines = new Drawable[2][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
                 break;
@@ -107,6 +117,8 @@ public class LetterDot {
                 break;
             case 'N':
                 Log.i(LETTER_DOT_TAG, "Letter N printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_n);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
                 break;
@@ -114,6 +126,8 @@ public class LetterDot {
                 break;
             case 'P':
                 Log.i(LETTER_DOT_TAG, "Letter P printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_p);
+                dotLines = new Drawable[2][];
                 dotLine1 = new Drawable[5];
                 dotLine2 = new Drawable[10];
                 straightLineLeft();
@@ -123,6 +137,8 @@ public class LetterDot {
                 break;
             case 'R':
                 Log.i(LETTER_DOT_TAG, "Letter R printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_r);
+                dotLines = new Drawable[3][];
                 dotLine1 = new Drawable[5];
                 straightLineLeft();
                 break;
