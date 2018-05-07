@@ -26,7 +26,7 @@ import com.android.project.abcappen.services.Sounds;
 public class PaintView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
-    private static char CURRENT_CHAR = 'B';
+    private static char CURRENT_CHAR = 'O';
 
 
     private Bitmap mBitmap;

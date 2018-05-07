@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // This line is just for test, remove later!!
+        startActivity(new Intent(getApplicationContext(), GameActivity.class));
+
+
         sounds = new Sounds(this);
 
         Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
