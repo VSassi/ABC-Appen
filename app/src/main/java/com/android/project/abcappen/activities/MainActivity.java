@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         sounds = new Sounds(this);
 
         Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
-        //startService(backgroundMusic);
+        startService(backgroundMusic);
 
         button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
