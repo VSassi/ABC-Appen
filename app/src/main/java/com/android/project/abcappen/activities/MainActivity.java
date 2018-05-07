@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
         sounds = new Sounds(this);
 
         Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
-        startService(backgroundMusic);
+        //startService(backgroundMusic);
 
         button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sounds.playPopSound();
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
     }

@@ -33,4 +33,6 @@ public final class ProfileContract {
 //                        AlphabetProgress.COL_LETTERS_COMPLETED + " INTEGER)";
 //        public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 //    }
+
+
 }

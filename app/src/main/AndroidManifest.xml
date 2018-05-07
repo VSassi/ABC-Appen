@@ -16,7 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.BackgroundMusicService" android:enabled="true"/>
+
+        <service
+            android:name=".services.BackgroundMusicService"
+            android:enabled="true" />
+
+        <activity android:name=".activities.GameActivity"></activity>
     </application>
 
 </manifest>

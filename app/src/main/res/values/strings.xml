@@ -2,4 +2,5 @@
     <string name="app_name">ABC Appen</string>
 
     <string name="button_create_profile"></string>
+    <string name="reset">reset</string>
 </resources>
