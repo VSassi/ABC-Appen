@@ -26,16 +26,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ProfileDatabaseHelper pdh = new ProfileDatabaseHelper(getApplicationContext());
-        ArrayList<String> letters = pdh.getAllLetters();
-        for (String letter : letters) {
-            Log.d("LETTERS", letter);
-        }
 
         sounds = new Sounds(this);
 
         Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
-        //startService(backgroundMusic);
+        startService(backgroundMusic);
 
         button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
