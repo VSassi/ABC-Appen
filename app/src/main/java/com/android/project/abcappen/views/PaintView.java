@@ -26,8 +26,7 @@ import com.android.project.abcappen.services.Sounds;
 public class PaintView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
-    private static char CURRENT_CHAR = 'O';
-
+    private static char CURRENT_CHAR = 'S';
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -67,10 +66,10 @@ public class PaintView extends View {
         currentLineNr = 0;
 
         mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.CYAN);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
-        mPaint.setStrokeWidth(10f);
+        mPaint.setStrokeWidth(15f);
     }
 
 
