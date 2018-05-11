@@ -2,8 +2,10 @@ package com.android.project.abcappen.letters;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.project.abcappen.R;
 
@@ -13,12 +15,13 @@ import com.android.project.abcappen.R;
 
 public class LetterDot {
     private static String LETTER_DOT_TAG = "LETTER_DOT";
-    
+
     private Canvas canvas;
     private Drawable background;
     private char letter;
-    private int dotSize = 20;
+    private int dotSize = 25;
     private float left, top, right, bottom, diffX, diffY;
+    private Context context;
 
     private Drawable dot1, dot2, dot3, dot4, dot5, dot6, dot7, dot8, dot9, dot10, dot11, dot12, dot13, dot14,
             dot15, dot16, dot17, dot18, dot19, dot20, dot21, dot22, dot23, dot24, dot25, dot26, dot27, dot28, dot29;
@@ -36,6 +39,7 @@ public class LetterDot {
         initDots(context);
         this.letter = letter;
         this.canvas = canvas;
+        this.context = context;
 
         switch (letter) {
             // DONE
@@ -92,8 +96,6 @@ public class LetterDot {
                 dotLine4 = horizontalLineLow(dotLine4);
                 dotLines[1] = dotLine2;
                 dotLines[3] = dotLine4;
-
-
                 break;
             case 'F':
                 Log.i(LETTER_DOT_TAG, "Letter F printed");
@@ -160,6 +162,9 @@ public class LetterDot {
             case 'M':
                 Log.i(LETTER_DOT_TAG, "Letter M printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_m);
+                dotLines = new Drawable[3][];
+                dotLine1 = new Drawable[5];
+                straightLineLeft();
                 break;
             // DONE
             case 'N':
@@ -250,11 +255,6 @@ public class LetterDot {
                 diagonalRisingLineFromMiddle();
                 dotLines[0] = dotLine1;
                 break;
-            case 'W':
-                Log.i(LETTER_DOT_TAG, "Letter W printed");
-                this.background = context.getResources().getDrawable(R.drawable.letter_w);
-                dotLines = new Drawable[4][];
-                break;
             // DONE
             case 'X':
                 Log.i(LETTER_DOT_TAG, "Letter X printed");
@@ -334,47 +334,45 @@ public class LetterDot {
                 dotLines[2] = dotLine3;
                 break;
         }
+        setFirstDotInEachLineToGreen(dotLines);
 
     }
 
-
     public void initDots(Context context) {
-        dot1 = context.getResources().getDrawable(R.drawable.dot);
-        dot2 = context.getResources().getDrawable(R.drawable.dot);
-        dot3 = context.getResources().getDrawable(R.drawable.dot);
-        dot4 = context.getResources().getDrawable(R.drawable.dot);
-        dot5 = context.getResources().getDrawable(R.drawable.dot);
+        dot1 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot2 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot3 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot4 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot5 = context.getResources().getDrawable(R.drawable.pink_dot);
 
-        dot6 = context.getResources().getDrawable(R.drawable.dot);
-        dot7 = context.getResources().getDrawable(R.drawable.dot);
-        dot8 = context.getResources().getDrawable(R.drawable.dot);
-        dot9 = context.getResources().getDrawable(R.drawable.dot);
-        dot10 = context.getResources().getDrawable(R.drawable.dot);
+        dot6 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot7 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot8 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot9 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot10 = context.getResources().getDrawable(R.drawable.pink_dot);
 
-        dot11 = context.getResources().getDrawable(R.drawable.dot);
-        dot12 = context.getResources().getDrawable(R.drawable.dot);
-        dot13 = context.getResources().getDrawable(R.drawable.dot);
-        dot14 = context.getResources().getDrawable(R.drawable.dot);
-        dot15 = context.getResources().getDrawable(R.drawable.dot);
+        dot11 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot12 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot13 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot14 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot15 = context.getResources().getDrawable(R.drawable.pink_dot);
 
-        dot16 = context.getResources().getDrawable(R.drawable.dot);
-        dot17 = context.getResources().getDrawable(R.drawable.dot);
-        dot18 = context.getResources().getDrawable(R.drawable.dot);
-        dot19 = context.getResources().getDrawable(R.drawable.dot);
-        dot20 = context.getResources().getDrawable(R.drawable.dot);
+        dot16 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot17 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot18 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot19 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot20 = context.getResources().getDrawable(R.drawable.pink_dot);
 
-        dot21 = context.getResources().getDrawable(R.drawable.dot);
-        dot22 = context.getResources().getDrawable(R.drawable.dot);
-        dot23 = context.getResources().getDrawable(R.drawable.dot);
-        dot24 = context.getResources().getDrawable(R.drawable.dot);
-        dot25 = context.getResources().getDrawable(R.drawable.dot);
+        dot21 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot22 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot23 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot24 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot25 = context.getResources().getDrawable(R.drawable.pink_dot);
 
-        dot26 = context.getResources().getDrawable(R.drawable.dot);
-        dot27 = context.getResources().getDrawable(R.drawable.dot);
-        dot28 = context.getResources().getDrawable(R.drawable.dot);
-        dot29 = context.getResources().getDrawable(R.drawable.dot);
-
-
+        dot26 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot27 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot28 = context.getResources().getDrawable(R.drawable.pink_dot);
+        dot29 = context.getResources().getDrawable(R.drawable.pink_dot);
     }
 
     public char getLetter() {
@@ -390,8 +388,8 @@ public class LetterDot {
 
         dotLines[0] = dotLine1;
 
-        diffX = 0.25f;
-        diffY = 0.62f;
+        diffX = 0.465f;
+        diffY = 0.335f;
 
         for (Drawable d : dotLine1) {
             left = (canvas.getWidth() * diffX) - dotSize;
@@ -399,9 +397,10 @@ public class LetterDot {
             right = (canvas.getWidth() * diffX) + dotSize;
             bottom = (canvas.getHeight() * diffY) + dotSize;
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-            diffX = diffX + 0.05f;
-            diffY = diffY - 0.07f;
+            diffX = diffX - 0.055f;
+            diffY = diffY + 0.072f;
         }
+
     }
 
     public void fallingDiagonalRight() {
@@ -413,8 +412,8 @@ public class LetterDot {
 
         dotLines[1] = dotLine2;
 
-        diffX = 0.53f;
-        diffY = 0.34f;
+        diffX = 0.51f;
+        diffY = 0.33f;
 
         for (Drawable d : dotLine2) {
             left = (canvas.getWidth() * diffX) - dotSize;
@@ -422,8 +421,8 @@ public class LetterDot {
             right = (canvas.getWidth() * diffX) + dotSize;
             bottom = (canvas.getHeight() * diffY) + dotSize;
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-            diffX = diffX + 0.05f;
-            diffY = diffY + 0.07f;
+            diffX = diffX + 0.055f;
+            diffY = diffY + 0.075f;
         }
     }
 
@@ -435,7 +434,7 @@ public class LetterDot {
 
         dotLines[2] = dotLine3;
 
-        diffX = 0.36f;
+        diffX = 0.34f;
         diffY = 0.55f;
 
         for (Drawable d : dotLine3) {
@@ -444,7 +443,7 @@ public class LetterDot {
             right = (canvas.getWidth() * diffX) + dotSize;
             bottom = (canvas.getHeight() * diffY) + dotSize;
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-            diffX = diffX + 0.09f;
+            diffX = diffX + 0.1f;
         }
     }
 
@@ -1246,8 +1245,8 @@ public class LetterDot {
 
         dotLines[1] = dotLine2;
 
-        diffX = 0.3f;
-        diffY = 0.53f;
+        diffX = 0.69f;
+        diffY = 0.332f;
 
         for (Drawable d : dotLine2) {
             left = (canvas.getWidth() * diffX) - dotSize;
@@ -1255,8 +1254,8 @@ public class LetterDot {
             right = (canvas.getWidth() * diffX) + dotSize;
             bottom = (canvas.getHeight() * diffY) + dotSize;
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-            diffX = diffX + 0.065f;
-            diffY = diffY - 0.033f;
+            diffX = diffX - 0.065f;
+            diffY = diffY + 0.033f;
         }
     }
 
@@ -1702,8 +1701,8 @@ public class LetterDot {
 
         dotLines[1] = dotLine2;
 
-        diffX = 0.29f;
-        diffY = 0.642f;
+        diffX = 0.7f;
+        diffY = 0.33f;
 
         for (Drawable d : dotLine2) {
             left = (canvas.getWidth() * diffX) - dotSize;
@@ -1711,8 +1710,8 @@ public class LetterDot {
             right = (canvas.getWidth() * diffX) + dotSize;
             bottom = (canvas.getHeight() * diffY) + dotSize;
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-            diffX = diffX + 0.064f;
-            diffY = diffY - 0.052f;
+            diffX = diffX - 0.072f;
+            diffY = diffY + 0.051f;
         }
     }
 
@@ -1832,6 +1831,7 @@ public class LetterDot {
 
         return dotLine;
     }
+
     public Drawable[] oneDotsHighRight(Drawable[] dotLine){
         dotLine[0] = dot21;
 
@@ -1843,8 +1843,28 @@ public class LetterDot {
 
         return dotLine;
     }
+
     public Drawable getBackground() {
         return background;
     }
+
+    public Drawable setGreenDotColor(Drawable dot){
+        int left = dot.getBounds().left;
+        int top = dot.getBounds().top;
+        int right = dot.getBounds().right;
+        int bottom = dot.getBounds().bottom;
+
+        dot = context.getResources().getDrawable(R.drawable.green_dot);
+
+        dot.setBounds(left, top, right, bottom);
+        return dot;
+    }
+
+    public void setFirstDotInEachLineToGreen(Drawable[][] dotLines){
+        for (int i = 0; i < dotLines.length; i++){
+            dotLines[i][0] = setGreenDotColor(dotLines[i][0]);
+        }
+    }
 }
+
 

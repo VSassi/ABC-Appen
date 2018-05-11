@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import com.android.project.abcappen.R;
 import com.android.project.abcappen.letters.LetterDot;
 import com.android.project.abcappen.services.Sounds;
 
@@ -26,7 +27,8 @@ import com.android.project.abcappen.services.Sounds;
 public class PaintView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
-    private static char CURRENT_CHAR = 'S';
+    private static char CURRENT_CHAR = 'A';
+
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -70,6 +72,8 @@ public class PaintView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(15f);
+
+
     }
 
 
@@ -102,7 +106,6 @@ public class PaintView extends View {
         for (Path p : paths) {
             canvas.drawPath(p, mPaint);
         }
-
         for (Drawable d : letterDot.dotLines[currentLineNr]) {
             d.draw(canvas);
         }
@@ -123,6 +126,7 @@ public class PaintView extends View {
                 System.out.println("X: " + x);
                 System.out.println("Y: " + y);
                 invalidate();
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -152,6 +156,8 @@ public class PaintView extends View {
                         A = nextDotX - currentDotX;
                         B = currentDotY - nextDotY;
                         dotDistance = (int) Math.sqrt(A * A + B * B);
+
+                        currentLine[currentDot + 1]= letterDot.setGreenDotColor(currentLine[currentDot + 1]);
                     }
 
                     //TODO: FIX REMOVAL OF DOTS, TEMPORARY SOLUTION IN PLACE
