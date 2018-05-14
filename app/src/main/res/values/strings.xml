@@ -3,6 +3,7 @@
 
     <string name="button_create_profile"></string>
     <string name="reset">reset</string>
+    <string name="nextBtn">next</string>
 
     <string-array name="letters">
         <item>A</item>

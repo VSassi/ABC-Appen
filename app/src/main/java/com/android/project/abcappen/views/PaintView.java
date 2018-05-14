@@ -1,6 +1,7 @@
 package com.android.project.abcappen.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.drawable.Drawable;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -27,8 +29,7 @@ import com.android.project.abcappen.services.Sounds;
 public class PaintView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
-    private static char CURRENT_CHAR = 'A';
-
+    private static int CURRENT_CHAR = 0;
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -49,6 +50,9 @@ public class PaintView extends View {
 
     private Sounds sounds;
     private Toast toast;
+    public boolean letterIsDone = false;
+
+    private String[] characters;
 
     public PaintView(Context context) {
         super(context);
@@ -73,6 +77,8 @@ public class PaintView extends View {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeWidth(15f);
 
+        characters = getResources().getStringArray(R.array.letters);
+
 
     }
 
@@ -85,11 +91,10 @@ public class PaintView extends View {
         clear();
     }
 
-
     public void clear() {
         currentDot = 0;
         currentLineNr = 0;
-        letterDot = new LetterDot(CURRENT_CHAR, mCanvas, context);
+        letterDot = new LetterDot(characters[CURRENT_CHAR].charAt(0), mCanvas, context);
         background = letterDot.getBackground();
         background.setBounds(0, 0, mCanvas.getWidth(), mCanvas.getHeight());
         paths.clear();
@@ -119,80 +124,87 @@ public class PaintView extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mPath = new Path();
-                touchStart(x, y);
-                System.out.println("X: " + x);
-                System.out.println("Y: " + y);
-                invalidate();
+        // FIX the if!
+        if (!letterDot.isFinished){
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mPath = new Path();
+                    touchStart(x, y);
+                    System.out.println("X: " + x);
+                    System.out.println("Y: " + y);
+                    invalidate();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    touchMove(x, y);
+                    pathMeasure.setPath(mPath, false);
+                    currentLine = letterDot.dotLines[currentLineNr];
 
-                break;
+                    //check collision with dots
+                    if (currentLine[currentDot].getBounds().intersect((int) x - 30, (int) y - 30, (int) x + 20, (int) y + 30)) {
+                        currentPathLength = (int) pathMeasure.getLength();
+                        sounds.playPopSound();
 
-            case MotionEvent.ACTION_MOVE:
-                touchMove(x, y);
-                pathMeasure.setPath(mPath, false);
-                currentLine = letterDot.dotLines[currentLineNr];
+                        if (currentDot == 0 && pathMeasure.getLength() >= 100) {
+                            toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                            toast.show();
+                            clear();
+                            break;
+                        }
 
-                //check collision with dots
-                if (currentLine[currentDot].getBounds().intersect((int) x - 30, (int) y - 30, (int) x + 20, (int) y + 30)) {
-                    currentPathLength = (int) pathMeasure.getLength();
-                    sounds.playPopSound();
-                    if (currentDot == 0 && pathMeasure.getLength() >= 100) {
+                        //check if we are not on the last dot, if not calc distance to next dot
+                        if (currentDot + 1 != currentLine.length) {
+                            int currentDotX, currentDotY, nextDotX, nextDotY;
+                            int A, B;
+                            currentDotX = currentLine[currentDot].getBounds().centerX();
+                            currentDotY = currentLine[currentDot].getBounds().centerY();
+                            nextDotX = currentLine[currentDot + 1].getBounds().centerX();
+                            nextDotY = currentLine[currentDot + 1].getBounds().centerY();
+                            A = nextDotX - currentDotX;
+                            B = currentDotY - nextDotY;
+                            dotDistance = (int) Math.sqrt(A * A + B * B);
+
+                            currentLine[currentDot + 1]= letterDot.setGreenDotColor(currentLine[currentDot + 1]);
+                        }
+
+                        //TODO: FIX REMOVAL OF DOTS, TEMPORARY SOLUTION IN PLACE
+                        currentLine[currentDot].setBounds(0, 0, 0, 0);
+                        currentDot++;
+
+                        //check if line and letter is finished
+                        if (currentDot == currentLine.length) {
+                            currentLineNr++;
+                            toast = Toast.makeText(context, "Line: " + currentLineNr + " finished", Toast.LENGTH_SHORT);
+                            toast.show();
+                            paths.add(mPath);
+                            currentDot = 0;
+                            if (currentLineNr == letterDot.dotLines.length) {
+                                toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
+                                toast.show();
+                                currentLineNr = 0;
+                                CURRENT_CHAR++;
+                                letterDot.isFinished = true;
+                                clear();
+                                break;
+                            }
+                        }
+                    }
+
+                    //check if the drawn path is longer than the distance to the next dot
+                    if (pathMeasure.getLength() - currentPathLength >= dotDistance + 50) {
                         toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
                         toast.show();
                         clear();
                         break;
                     }
-
-                    //check if we are not on the last dot, if not calc distance to next dot
-                    if (currentDot + 1 != currentLine.length) {
-                        int currentDotX, currentDotY, nextDotX, nextDotY;
-                        int A, B;
-                        currentDotX = currentLine[currentDot].getBounds().centerX();
-                        currentDotY = currentLine[currentDot].getBounds().centerY();
-                        nextDotX = currentLine[currentDot + 1].getBounds().centerX();
-                        nextDotY = currentLine[currentDot + 1].getBounds().centerY();
-                        A = nextDotX - currentDotX;
-                        B = currentDotY - nextDotY;
-                        dotDistance = (int) Math.sqrt(A * A + B * B);
-
-                        currentLine[currentDot + 1]= letterDot.setGreenDotColor(currentLine[currentDot + 1]);
-                    }
-
-                    //TODO: FIX REMOVAL OF DOTS, TEMPORARY SOLUTION IN PLACE
-                    currentLine[currentDot].setBounds(0, 0, 0, 0);
-                    currentDot++;
-
-                    //check if line and letter is finished
-                    if (currentDot == currentLine.length) {
-                        currentLineNr++;
-                        toast = Toast.makeText(context, "Line: " + currentLineNr + " finished", Toast.LENGTH_SHORT);
-                        toast.show();
-                        paths.add(mPath);
-                        currentDot = 0;
-                        if (currentLineNr == letterDot.dotLines.length) {
-                            toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
-                            toast.show();
-                            currentLineNr = 0;
-                        }
-                    }
-                }
-
-                //check if the drawn path is longer than the distance to the next dot
-                if (pathMeasure.getLength() - currentPathLength >= dotDistance + 50) {
-                    toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
-                    toast.show();
-                    clear();
+                    invalidate();
                     break;
-                }
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                touchUp();
-                invalidate();
-                break;
+                case MotionEvent.ACTION_UP:
+                    touchUp();
+                    invalidate();
+                    break;
+            }
         }
+
 
         return true;
     }
@@ -240,4 +252,6 @@ public class PaintView extends View {
     public float getmY() {
         return mY;
     }
+
+
 }

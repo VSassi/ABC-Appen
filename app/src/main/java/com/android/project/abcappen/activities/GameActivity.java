@@ -23,7 +23,6 @@ public class GameActivity extends AppCompatActivity {
         sounds = new Sounds(getApplicationContext());
         paintView = (PaintView) findViewById(R.id.paintView);
         resetButton = (Button) findViewById(R.id.resetBtn);
-
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

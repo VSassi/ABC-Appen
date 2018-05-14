@@ -34,12 +34,14 @@ public class LetterDot {
 
     public Drawable[][] dotLines;
 
+    public boolean isFinished;
 
     public LetterDot(char letter, Canvas canvas, Context context) {
         initDots(context);
         this.letter = letter;
         this.canvas = canvas;
         this.context = context;
+        this.isFinished = false;
 
         switch (letter) {
             // DONE
@@ -92,9 +94,11 @@ public class LetterDot {
                 dotLine4 = new Drawable[5];
                 straightLineLeft();
                 dotLine2 = horizontalLineHigh(dotLine2);
-                horizontalLineMiddle();
+                dotLine3 = horizontalLineMiddle(dotLine3);
+                //horizontalLineMiddle();
                 dotLine4 = horizontalLineLow(dotLine4);
                 dotLines[1] = dotLine2;
+                dotLines[2] = dotLine3;
                 dotLines[3] = dotLine4;
                 break;
             case 'F':
@@ -106,8 +110,11 @@ public class LetterDot {
                 dotLine3 = new Drawable[5];
                 straightLineLeft();
                 dotLine2 = horizontalLineHigh(dotLine2);
-                horizontalLineMiddle();
+                dotLine3 = horizontalLineMiddle(dotLine3);
+                //horizontalLineMiddle();
                 dotLines[1] = dotLine2;
+                dotLines[2] = dotLine3;
+
                 break;
             case 'G':
                 Log.i(LETTER_DOT_TAG, "Letter G printed");
@@ -117,8 +124,21 @@ public class LetterDot {
                 dotLine2 = new Drawable[5];
                 halfCircleLeft();
                 gDotFix();
+                dotLines[1] = dotLine2;
                 break;
             case 'H':
+                Log.i(LETTER_DOT_TAG, "Letter H printed");
+                this.background = context.getResources().getDrawable(R.drawable.letter_h);
+                dotLines = new Drawable[3][];
+                dotLine1 = new Drawable[5];
+                dotLine2 = new Drawable[5];
+                dotLine3 = new Drawable[7];
+                straightLineLeft();
+                dotLine2 = straightLineRight(dotLine2);
+                dotLine3 = horizontalLineMiddle(dotLine3);
+                dotLines[1] = dotLine2;
+                dotLines[2] = dotLine3;
+
                 break;
             // DONE
             case 'I':
@@ -162,9 +182,15 @@ public class LetterDot {
             case 'M':
                 Log.i(LETTER_DOT_TAG, "Letter M printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_m);
-                dotLines = new Drawable[3][];
+                dotLines = new Drawable[4][];
                 dotLine1 = new Drawable[5];
-                straightLineLeft();
+                dotLine2 = new Drawable[5];
+                dotLine3 = new Drawable[5];
+                dotLine4 = new Drawable[5];
+                mLinesLeft();
+                mLinesMiddleLeft();
+                mLinesMiddleRight();
+                mLinesRight();
                 break;
             // DONE
             case 'N':
@@ -176,8 +202,10 @@ public class LetterDot {
                 dotLine3 = new Drawable[5];
                 straightLineLeft();
                 dotLine2 = diagonalFallingLineFromLeft(dotLine2);
-                straightLineRight();
+                dotLine3 = straightLineRight(dotLine3);
                 dotLines[1] = dotLine2;
+                dotLines[2] = dotLine3;
+
                 break;
             // DONE
             case 'O':
@@ -1016,19 +1044,23 @@ public class LetterDot {
         return dotLine;
     }
 
-    public void horizontalLineMiddle(){
-        dotLine3[0] = dot11;
-        dotLine3[1] = dot12;
-        dotLine3[2] = dot13;
-        dotLine3[3] = dot14;
-        dotLine3[4] = dot15;
+    public Drawable[] horizontalLineMiddle(Drawable[] dotLine){
+        dotLine[0] = dot11;
+        dotLine[1] = dot12;
+        dotLine[2] = dot13;
+        dotLine[3] = dot14;
+        dotLine[4] = dot15;
 
-        dotLines[2] = dotLine3;
-
-        diffX = 0.34f;
         diffY = 0.475f;
 
-        for (Drawable d : dotLine3) {
+        if ((getLetter() == 'E') || getLetter() == 'F'){
+            diffX = 0.34f;
+        } else if (getLetter() == 'H'){
+            dotLine[5] = dot16;
+            dotLine[6] = dot17;
+            diffX = 0.29f;
+        }
+        for (Drawable d : dotLine) {
             left = (canvas.getWidth() * diffX) - dotSize;
             top = (canvas.getHeight() * diffY) - dotSize;
             right = (canvas.getWidth() * diffX) + dotSize;
@@ -1036,6 +1068,7 @@ public class LetterDot {
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
             diffX = diffX + 0.072f;
         }
+        return dotLine;
     }
 
     // reusable
@@ -1416,19 +1449,17 @@ public class LetterDot {
         return dotLine;
     }
 
-    public void straightLineRight(){
-        dotLine3[0] = dot13;
-        dotLine3[1] = dot14;
-        dotLine3[2] = dot15;
-        dotLine3[3] = dot16;
-        dotLine3[4] = dot17;
-
-        dotLines[2] = dotLine3;
+    public Drawable[] straightLineRight(Drawable[] dotLine){
+        dotLine[0] = dot18;
+        dotLine[1] = dot19;
+        dotLine[2] = dot20;
+        dotLine[3] = dot21;
+        dotLine[4] = dot22;
 
         diffX = 0.725f;
         diffY = 0.325f;
 
-        for (Drawable d : dotLine3) {
+        for (Drawable d : dotLine) {
             left = (canvas.getWidth() * diffX) - dotSize;
             top = (canvas.getHeight() * diffY) - dotSize;
             right = (canvas.getWidth() * diffX) + dotSize;
@@ -1436,6 +1467,7 @@ public class LetterDot {
             d.setBounds((int) left, (int) top, (int) right, (int) bottom);
             diffY = diffY + 0.076f;
         }
+        return dotLine;
     }
 
     public void sDots(){
@@ -1844,6 +1876,98 @@ public class LetterDot {
         return dotLine;
     }
 
+    public void mLinesLeft(){
+        dotLine1[0] = dot1;
+        dotLine1[1] = dot2;
+        dotLine1[2] = dot3;
+        dotLine1[3] = dot4;
+        dotLine1[4] = dot5;
+
+        dotLines[0] = dotLine1;
+
+        diffX = 0.29f;
+        diffY = 0.33f;
+
+        for (Drawable d : dotLine1) {
+            left = (canvas.getWidth() * diffX) - dotSize;
+            top = (canvas.getHeight() * diffY) - dotSize;
+            right = (canvas.getWidth() * diffX) + dotSize;
+            bottom = (canvas.getHeight() * diffY) + dotSize;
+            d.setBounds((int) left, (int) top, (int) right, (int) bottom);
+            diffX = diffX - 0.038f;
+            diffY = diffY + 0.072f;
+        }
+    }
+
+    public void mLinesMiddleLeft(){
+        dotLine2[0] = dot6;
+        dotLine2[1] = dot7;
+        dotLine2[2] = dot8;
+        dotLine2[3] = dot9;
+        dotLine2[4] = dot10;
+
+        dotLines[1] = dotLine2;
+
+        diffX = 0.3f;
+        diffY = 0.33f;
+
+        for (Drawable d : dotLine2) {
+            left = (canvas.getWidth() * diffX) - dotSize;
+            top = (canvas.getHeight() * diffY) - dotSize;
+            right = (canvas.getWidth() * diffX) + dotSize;
+            bottom = (canvas.getHeight() * diffY) + dotSize;
+            d.setBounds((int) left, (int) top, (int) right, (int) bottom);
+            diffX = diffX + 0.045f;
+            diffY = diffY + 0.074f;
+        }
+    }
+
+    public void mLinesMiddleRight(){
+        dotLine3[0] = dot11;
+        dotLine3[1] = dot12;
+        dotLine3[2] = dot13;
+        dotLine3[3] = dot14;
+        dotLine3[4] = dot15;
+
+        dotLines[2] = dotLine3;
+
+        diffX = 0.69f;
+        diffY = 0.33f;
+
+        for (Drawable d : dotLine3) {
+            left = (canvas.getWidth() * diffX) - dotSize;
+            top = (canvas.getHeight() * diffY) - dotSize;
+            right = (canvas.getWidth() * diffX) + dotSize;
+            bottom = (canvas.getHeight() * diffY) + dotSize;
+            d.setBounds((int) left, (int) top, (int) right, (int) bottom);
+            diffX = diffX - 0.0454f;
+            diffY = diffY + 0.075f;
+        }
+    }
+
+    public void mLinesRight(){
+        dotLine4[0] = dot16;
+        dotLine4[1] = dot17;
+        dotLine4[2] = dot18;
+        dotLine4[3] = dot19;
+        dotLine4[4] = dot20;
+
+        dotLines[3] = dotLine4;
+
+        diffX = 0.7f;
+        diffY = 0.33f;
+
+        for (Drawable d : dotLine4) {
+            left = (canvas.getWidth() * diffX) - dotSize;
+            top = (canvas.getHeight() * diffY) - dotSize;
+            right = (canvas.getWidth() * diffX) + dotSize;
+            bottom = (canvas.getHeight() * diffY) + dotSize;
+            d.setBounds((int) left, (int) top, (int) right, (int) bottom);
+            diffX = diffX + 0.037f;
+            diffY = diffY + 0.072f;
+        }
+    }
+
     public Drawable getBackground() {
         return background;
     }
@@ -1865,6 +1989,7 @@ public class LetterDot {
             dotLines[i][0] = setGreenDotColor(dotLines[i][0]);
         }
     }
+
 }
 
 

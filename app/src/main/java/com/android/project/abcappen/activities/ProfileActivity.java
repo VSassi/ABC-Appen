@@ -25,12 +25,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvName = findViewById(R.id.tv_name);
         tvWritingStats = findViewById(R.id.tv_writing_stats);
-        tvReadingStats = findViewById(R.id.tv_reading_stats);
+        //tvReadingStats = findViewById(R.id.tv_reading_stats);
 
         Intent intent = getIntent();
         tvName.setText(intent.getStringExtra("name"));
-
-
     }
 
     public void playWritingGame(View v) {
