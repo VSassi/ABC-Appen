@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.android.project.abcappen.R;
+import com.android.project.abcappen.activities.BooleanVariable;
 import com.android.project.abcappen.letters.LetterDot;
 import com.android.project.abcappen.services.Sounds;
 
@@ -30,6 +31,8 @@ public class PaintView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
     private static int CURRENT_CHAR = 0;
+
+    private BooleanVariable booleanVariable;
 
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -50,7 +53,6 @@ public class PaintView extends View {
 
     private Sounds sounds;
     private Toast toast;
-    public boolean letterIsDone = false;
 
     private String[] characters;
 
@@ -62,6 +64,7 @@ public class PaintView extends View {
         super(context, attrs);
         this.context = context;
 
+        booleanVariable = new BooleanVariable();
         sounds = new Sounds(context);
         paths = new ArrayList<>();
         pathMeasure = new PathMeasure();
@@ -151,6 +154,13 @@ public class PaintView extends View {
                             break;
                         }
 
+                        if (paths.size() > currentLineNr){
+                            toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                            toast.show();
+                            clear();
+                            break;
+                        }
+
                         //check if we are not on the last dot, if not calc distance to next dot
                         if (currentDot + 1 != currentLine.length) {
                             int currentDotX, currentDotY, nextDotX, nextDotY;
@@ -166,6 +176,7 @@ public class PaintView extends View {
                             currentLine[currentDot + 1]= letterDot.setGreenDotColor(currentLine[currentDot + 1]);
                         }
 
+
                         //TODO: FIX REMOVAL OF DOTS, TEMPORARY SOLUTION IN PLACE
                         currentLine[currentDot].setBounds(0, 0, 0, 0);
                         currentDot++;
@@ -175,15 +186,12 @@ public class PaintView extends View {
                             currentLineNr++;
                             toast = Toast.makeText(context, "Line: " + currentLineNr + " finished", Toast.LENGTH_SHORT);
                             toast.show();
-                            paths.add(mPath);
                             currentDot = 0;
                             if (currentLineNr == letterDot.dotLines.length) {
                                 toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
                                 toast.show();
                                 currentLineNr = 0;
-                                CURRENT_CHAR++;
-                                letterDot.isFinished = true;
-                                clear();
+                                booleanVariable.setBoo(true);
                                 break;
                             }
                         }
@@ -200,6 +208,7 @@ public class PaintView extends View {
                     break;
                 case MotionEvent.ACTION_UP:
                     touchUp();
+                    paths.add(mPath);
                     invalidate();
                     break;
             }
@@ -253,5 +262,15 @@ public class PaintView extends View {
         return mY;
     }
 
+    public BooleanVariable getBooleanVariable() {
+        return booleanVariable;
+    }
 
+    public void setBooleanVariable(BooleanVariable booleanVariable) {
+        this.booleanVariable = booleanVariable;
+    }
+
+    public void nextChar(){
+        CURRENT_CHAR++;
+    }
 }
