@@ -39,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.deleteDatabase(ProfileContract.DATABASE_NAME);
 
-
+        // Delete database on app start for testing
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
         sounds = new Sounds(this);
 
@@ -76,17 +77,10 @@ public class MainActivity extends AppCompatActivity {
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-                //ListView Clicked item index
-                int itemPosition = position;
-
-                // ListView Clicked item value
-                String  itemValue = (String) userList.getItemAtPosition(position);
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
+                String name = profileDatabaseHelper.getProfile(position+1);
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
             }
         });
 
