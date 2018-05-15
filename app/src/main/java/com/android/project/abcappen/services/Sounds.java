@@ -14,6 +14,7 @@ public class Sounds {
     private static int complete,pop,failOne,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
     private static int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,å,ä,ö;
     int sound=0;
+    int fail=0;
 
 
 
@@ -22,8 +23,8 @@ public class Sounds {
         soundPool = new SoundPool(43, AudioManager.STREAM_MUSIC,0);
         pop = soundPool.load(context, R.raw.pop_sound,1);
         failOne = soundPool.load(context,R.raw.fail_one,1);
-        failTwo = soundPool.load(context,R.raw.fail_two,1);
-        failThree = soundPool.load(context,R.raw.fail_three,1);
+        failTwo = soundPool.load(context,R.raw.fail_five_pippi,1);
+        failThree = soundPool.load(context,R.raw.fail_four_pippi,1);
         complete = soundPool.load(context,R.raw.level_completed,1);
         gitar1 = soundPool.load(context,R.raw.gitar_1,1);
         gitar2 = soundPool.load(context,R.raw.gitar_2,1);
@@ -98,13 +99,14 @@ public class Sounds {
 
     }
     public void playFailSound(){
+        fail = fail+1;
+        if(fail==1) {
+            soundPool.play(failThree, 1.0f, 1.0f, 1, 0, 1.0f);
+        }if(fail==2){
+            soundPool.play(failTwo, 1.0f, 1.0f, 1, 0, 1.0f);
+            fail=0;
+        }
 
-        int n = new Random().nextInt(2);
-
-        if (n==1) {
-            soundPool.play(failOne, 1.0f, 1.0f, 1, 0, 1.0f);
-        }else{
-        soundPool.play(failThree, 1.0f, 1.0f, 1, 0, 1.0f);}
     }
     public void playPopSound(){
         soundPool.play(pop, 1.0f, 1.0f, 1, 0, 1.0f);
@@ -116,91 +118,91 @@ public class Sounds {
     public void playLetter(char letter){
         switch (letter){
             case 'A':
-                soundPool.play(a,2.0f,2.0f,0,0,0);
+                soundPool.play(a,1.0f,1.0f,0,0,0);
                 break;
             case 'B':
-                soundPool.play(b,2.0f,2.0f,0,0,0);
+                soundPool.play(b,1.0f,1.0f,0,0,0);
                 break;
             case 'C':
-                soundPool.play(c,2.0f,2.0f,0,0,0);
+                soundPool.play(c,1.0f,1.0f,0,0,0);
                 break;
             case 'D':
-                soundPool.play(d,2.0f,2.0f,0,0,0);
+                soundPool.play(d,1.0f,1.0f,0,0,0);
                 break;
             case 'E':
-                soundPool.play(e,2.0f,2.0f,0,0,0);
+                soundPool.play(e,1.0f,1.0f,0,0,0);
                 break;
             case 'F':
-                soundPool.play(f,2.0f,2.0f,0,0,0);
+                soundPool.play(f,1.0f,1.0f,0,0,0);
                 break;
             case 'G':
-                soundPool.play(g,2.0f,2.0f,0,0,0);
+                soundPool.play(g,1.0f,1.0f,0,0,0);
                 break;
             case 'H':
-                soundPool.play(h,2.0f,2.0f,0,0,0);
+                soundPool.play(h,1.0f,1.0f,0,0,0);
                 break;
             case 'I':
-                soundPool.play(i,2.0f,2.0f,0,0,0);
+                soundPool.play(i,1.0f,1.0f,0,0,0);
                 break;
             case 'J':
-                soundPool.play(j,2.0f,2.0f,0,0,0);
+                soundPool.play(j,1.0f,1.0f,0,0,0);
                 break;
             case 'K':
-                soundPool.play(k,2.0f,2.0f,0,0,0);
+                soundPool.play(k,1.0f,1.0f,0,0,0);
                 break;
             case 'L':
-                soundPool.play(l,2.0f,2.0f,0,0,0);
+                soundPool.play(l,1.0f,1.0f,0,0,0);
                 break;
             case 'M':
-                soundPool.play(m,2.0f,2.0f,0,0,0);
+                soundPool.play(m,1.0f,1.0f,0,0,0);
                 break;
             case 'N':
-                soundPool.play(n,2.0f,2.0f,0,0,0);
+                soundPool.play(n,1.0f,1.0f,0,0,0);
                 break;
             case 'O':
-                soundPool.play(o,2.0f,2.0f,0,0,0);
+                soundPool.play(o,1.0f,1.0f,0,0,0);
                 break;
             case 'P':
-                soundPool.play(p,2.0f,2.0f,0,0,0);
+                soundPool.play(p,1.0f,1.0f,0,0,0);
                 break;
             case 'Q':
-                soundPool.play(q,2.0f,2.0f,0,0,0);
+                soundPool.play(q,1.0f,1.0f,0,0,0);
                 break;
             case 'R':
-                soundPool.play(r,2.0f,2.0f,0,0,0);
+                soundPool.play(r,1.0f,1.0f,0,0,0);
                 break;
             case 'S':
-                soundPool.play(s,2.0f,2.0f,0,0,0);
+                soundPool.play(s,1.0f,1.0f,0,0,0);
                 break;
             case 'T':
-                soundPool.play(t,2.0f,2.0f,0,0,0);
+                soundPool.play(t,1.0f,1.0f,0,0,0);
                 break;
             case 'U':
-                soundPool.play(u,2.0f,2.0f,0,0,0);
+                soundPool.play(u,1.0f,1.0f,0,0,0);
                 break;
             case 'V':
-                soundPool.play(v,2.0f,2.0f,0,0,0);
+                soundPool.play(v,1.0f,1.0f,0,0,0);
                 break;
             case 'W':
-                soundPool.play(w,2.0f,2.0f,0,0,0);
+                soundPool.play(w,1.0f,1.0f,0,0,0);
                 break;
             case 'X':
-                soundPool.play(x,2.0f,2.0f,0,0,0);
+                soundPool.play(x,1.0f,1.0f,0,0,0);
                 break;
             case 'Y':
-                soundPool.play(y,2.0f,2.0f,0,0,0);
+                soundPool.play(y,1.0f,1.0f,0,0,0);
                 break;
             case 'Z':
-                soundPool.play(z,2.0f,2.0f,0,0,0);
+                soundPool.play(z,1.0f,1.0f,0,0,0);
                 break;
             case 'Å':
-                soundPool.play(å,2.0f,2.0f,0,0,0);
+                soundPool.play(å,1.0f,1.0f,0,0,0);
                 break;
             case 'Ä':
-                soundPool.play(ä,2.0f,2.0f,0,0,0);
+                soundPool.play(ä,1.0f,1.0f,0,0,0);
                 break;
             case 'Ö':
-                soundPool.play(ö,2.0f,2.0f,0,0,0);
+                soundPool.play(ö,1.0f,1.0f,0,0,0);
                 break;
 
 
