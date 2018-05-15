@@ -515,9 +515,9 @@ public class LetterDot {
 
         dotLines[1] = dotLine2;
 
-        left = (canvas.getWidth() * 0.32f) - dotSize;
+        left = (canvas.getWidth() * 0.305f) - dotSize;
         top = (canvas.getHeight() * 0.325f) - dotSize;
-        right = (canvas.getWidth() * 0.32f) + dotSize;
+        right = (canvas.getWidth() * 0.305f) + dotSize;
         bottom = (canvas.getHeight() * 0.325f) + dotSize;
         dot6.setBounds((int) left, (int) top, (int) right, (int) bottom);
 
@@ -581,9 +581,9 @@ public class LetterDot {
         bottom = (canvas.getHeight() * 0.475f) + dotSize;
         dot16.setBounds((int) left, (int) top, (int) right, (int) bottom);
 
-        left = (canvas.getWidth() * 0.315f) - dotSize;
+        left = (canvas.getWidth() * 0.30f) - dotSize;
         top = (canvas.getHeight() * 0.475f) - dotSize;
-        right = (canvas.getWidth() * 0.315f) + dotSize;
+        right = (canvas.getWidth() * 0.30f) + dotSize;
         bottom = (canvas.getHeight() * 0.475f) + dotSize;
         dot17.setBounds((int) left, (int) top, (int) right, (int) bottom);
 
@@ -605,9 +605,9 @@ public class LetterDot {
 
         dotLines[2] = dotLine3;
 
-        left = (canvas.getWidth() * 0.375f) - dotSize;
+        left = (canvas.getWidth() * 0.38f) - dotSize;
         top = (canvas.getHeight() * 0.475f) - dotSize;
-        right = (canvas.getWidth() * 0.375f) + dotSize;
+        right = (canvas.getWidth() * 0.38f) + dotSize;
         bottom = (canvas.getHeight() * 0.475f) + dotSize;
         dot18.setBounds((int) left, (int) top, (int) right, (int) bottom);
 
