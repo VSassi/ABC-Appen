@@ -29,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
         paintView.getBooleanVariable().setListener(new BooleanVariable.ChangeListener() {
             @Override
             public void onChange() {
+
                 nextButton.setVisibility(View.VISIBLE);
             }
         });

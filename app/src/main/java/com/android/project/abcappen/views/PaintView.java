@@ -51,7 +51,7 @@ public class PaintView extends View {
     private Drawable background;
     private Context context;
 
-    private Sounds sounds;
+    public Sounds sounds;
     private Toast toast;
 
     private String[] characters;
@@ -145,17 +145,18 @@ public class PaintView extends View {
                     //check collision with dots
                     if (currentLine[currentDot].getBounds().intersect((int) x - 30, (int) y - 30, (int) x + 20, (int) y + 30)) {
                         currentPathLength = (int) pathMeasure.getLength();
-                        sounds.playPopSound();
+                        sounds.playMelodySound();
 
                         if (currentDot == 0 && pathMeasure.getLength() >= 100) {
                             toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                            sounds.playFailSound();
                             toast.show();
                             clear();
                             break;
                         }
-
                         if (paths.size() > currentLineNr){
                             toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                            sounds.playFailSound();
                             toast.show();
                             clear();
                             break;
@@ -189,6 +190,8 @@ public class PaintView extends View {
                             currentDot = 0;
                             if (currentLineNr == letterDot.dotLines.length) {
                                 toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
+                               // sounds.playComplete();
+                                sounds.playLetter(characters[CURRENT_CHAR].charAt(0));
                                 toast.show();
                                 currentLineNr = 0;
                                 booleanVariable.setBoo(true);
@@ -196,10 +199,10 @@ public class PaintView extends View {
                             }
                         }
                     }
-
                     //check if the drawn path is longer than the distance to the next dot
                     if (pathMeasure.getLength() - currentPathLength >= dotDistance + 50) {
                         toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                        sounds.playFailSound();
                         toast.show();
                         clear();
                         break;
@@ -213,7 +216,6 @@ public class PaintView extends View {
                     break;
             }
         }
-
 
         return true;
     }

@@ -5,6 +5,7 @@
     <string name="reset">reset</string>
     <string name="nextBtn">next</string>
     <string name="nextBtnn">next letter</string>
+    <string name="n_sta_bokstav">nästa Bokstav</string>
 
     <string-array name="letters">
         <item>A</item>

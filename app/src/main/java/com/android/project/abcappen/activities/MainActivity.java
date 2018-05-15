@@ -2,10 +2,9 @@ package com.android.project.abcappen.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.project.abcappen.data.ProfileContract;
 import com.android.project.abcappen.data.ProfileDatabaseHelper;
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView userList;
     private TextView addUser;
     private ArrayList<String> userNameList;
+
 
 
     @Override
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         userNameList = profileDatabaseHelper.getAllProfiles();
-        adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,android.R.id.text1,userNameList);
+        adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,android.R.id.text1,userNameList);
         userList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,12 +97,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         sounds.playPopSound();
+
                         String username = addUserText.getText().toString();
-                        profileDatabaseHelper.addProfile(username);
-                        userNameList = profileDatabaseHelper.getAllProfiles();
-                        adapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,userNameList);
-                        userList.setAdapter(adapter);
-                        dialog.dismiss();
+                        if(TextUtils.isEmpty(username)) {
+                            addUserText.setError("Var god fyll i namn");
+
+                        }else {
+                            profileDatabaseHelper.addProfile(username);
+                            userNameList = profileDatabaseHelper.getAllProfiles();
+                            adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, userNameList);
+                            userList.setAdapter(adapter);
+                            dialog.dismiss();
+                        }
                     }
                 });
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.project.abcappen.R;
+import com.android.project.abcappen.services.Sounds;
 
 /**
  * Created by martin on 2018-05-02.
@@ -46,6 +47,7 @@ public class LetterDot {
         switch (letter) {
             // DONE
             case 'A':
+
                 Log.i(LETTER_DOT_TAG, "Letter A printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_a);
                 dotLines = new Drawable[3][];

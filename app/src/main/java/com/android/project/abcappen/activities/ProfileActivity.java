@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.android.project.abcappen.R;
 import com.android.project.abcappen.data.ProfileDatabaseHelper;
+import com.android.project.abcappen.services.BackgroundMusicService;
 import com.android.project.abcappen.services.Sounds;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -34,6 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void playWritingGame(View v) {
         Sounds sounds = new Sounds(this);
         sounds.playPopSound();
+        Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
+        stopService(backgroundMusic);
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
     }
 }
