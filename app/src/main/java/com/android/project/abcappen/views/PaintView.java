@@ -193,8 +193,6 @@ public class PaintView extends View {
                         //check if line and letter is finished
                         if (currentDot == currentLine.length) {
                             currentLineNr++;
-                            toast = Toast.makeText(context, "Line: " + currentLineNr + " finished", Toast.LENGTH_SHORT);
-                            toast.show();
                             currentDot = 0;
                             if (currentLineNr == letterDot.dotLines.length) {
                                 toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
@@ -289,6 +287,10 @@ public class PaintView extends View {
     }
 
     public void nextChar(){
-        CURRENT_CHAR++;
+        if (CURRENT_CHAR == 27){
+            CURRENT_CHAR = 0;
+        } else {
+            CURRENT_CHAR++;
+        }
     }
 }
