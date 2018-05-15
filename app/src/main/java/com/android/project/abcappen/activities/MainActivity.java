@@ -20,6 +20,7 @@ import com.android.project.abcappen.data.ProfileDatabaseHelper;
 import com.android.project.abcappen.services.BackgroundMusicService;
 import com.android.project.abcappen.R;
 import com.android.project.abcappen.services.Sounds;
+import com.android.project.abcappen.shared.SharedPrefManager;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.deleteDatabase(ProfileContract.DATABASE_NAME);
 
-        // Delete database on app start for testing
+
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
         sounds = new Sounds(this);
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 String name = profileDatabaseHelper.getProfile(position+1);
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 intent.putExtra("name", name);
+                SharedPrefManager.getInstance(getApplicationContext()).storeId(String.valueOf(position+1));
                 startActivity(intent);
             }
         });

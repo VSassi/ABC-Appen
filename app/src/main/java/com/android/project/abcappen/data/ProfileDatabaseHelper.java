@@ -3,6 +3,7 @@ package com.android.project.abcappen.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -89,6 +90,56 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
 //        }
     }
 
+    public void updateWritingProgress(String profileId, String letter, int timesCompleted, int completionTime, int accuracy) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED, timesCompleted);
+        values.put(ProfileContract.ProfileWritingProgress.COL_COMPLETION_TIME, completionTime);
+        values.put(ProfileContract.ProfileWritingProgress.COL_ACCURACY, accuracy);
+
+        String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileWritingProgress.COL_FK_LETTER +
+                "=?";
+        String[] selectionArgs = {String.valueOf(profileId), letter};
+
+        db.update(ProfileContract.ProfileWritingProgress.TABLE_NAME, values, selection, selectionArgs);
+    }
+
+    public int getTimesCompleted(String profileId, String letter) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED};
+        String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileWritingProgress.COL_FK_LETTER +
+                "=?";
+        String[] selectionArgs = {String.valueOf(profileId), letter};
+
+        String timesCompleted = "";
+        Cursor cursor = db.query(ProfileContract.ProfileWritingProgress.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            timesCompleted = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED));
+        }
+        return Integer.parseInt(timesCompleted);
+    }
+
+    public long getNumberOfCompletedLetters(String profileId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED + " != 0";
+        String[] selectionArgs = {profileId};
+        long numCompletedLetters = DatabaseUtils.queryNumEntries(db, ProfileContract.ProfileWritingProgress.TABLE_NAME,
+                selection, selectionArgs);
+        return numCompletedLetters;
+    }
+
     public String getProfile(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {ProfileContract.Profiles.COL_NAME};
@@ -111,7 +162,6 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<String> getAllProfiles() {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {ProfileContract.Profiles.COL_NAME};
-//        String sortOrder = ProfileContract.Profiles.COL_NAME;
         Cursor cursor = db.query(ProfileContract.Profiles.TABLE_NAME, projection,
                 null, null, null, null, null);
 
