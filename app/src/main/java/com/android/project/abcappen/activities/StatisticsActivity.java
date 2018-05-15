@@ -38,7 +38,7 @@ public class StatisticsActivity extends AppCompatActivity {
         LetterProgress letterProgress = writingProgress.get(0);
         tvLetter.setText(letterProgress.getLetter());
         tvTimesCompleted.setText(letterProgress.getTimesCompleted());
-        double completionTime = Double.parseDouble(letterProgress.getCompletionTime())/100;
+        double completionTime = Double.parseDouble(letterProgress.getCompletionTime())/1000;
         tvCompletionTime.setText(String.valueOf(completionTime));
         tvAccuracy.setText(letterProgress.getAccuracy());
     }

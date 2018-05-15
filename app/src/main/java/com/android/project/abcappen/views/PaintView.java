@@ -59,6 +59,8 @@ public class PaintView extends View {
     private String[] characters;
 
     private long startTime;
+    private int dotDistanceSum;
+    private int playerPathDistanceSum;
 
     public PaintView(Context context) {
         super(context);
@@ -107,6 +109,10 @@ public class PaintView extends View {
         paths.clear();
         mPath.reset();
         mPath.moveTo(mX, mY);
+
+        dotDistanceSum = 0;
+        playerPathDistanceSum = 0;
+
         invalidate();
     }
 
@@ -132,7 +138,7 @@ public class PaintView extends View {
         float y = event.getY();
 
         // FIX the if!
-        if (!letterDot.isFinished){
+        if (!letterDot.isFinished) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mPath = new Path();
@@ -151,7 +157,7 @@ public class PaintView extends View {
                         currentPathLength = (int) pathMeasure.getLength();
                         sounds.playMelodySound();
 
-                        if (currentDot == 0) {
+                        if (currentLineNr == 0 && currentDot == 0) {
                             startTime = System.currentTimeMillis();
                             if (pathMeasure.getLength() >= 100) {
                                 toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
@@ -160,7 +166,6 @@ public class PaintView extends View {
                                 clear();
                                 break;
                             }
-
                         }
                         if (paths.size() > currentLineNr){
                             toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
@@ -181,8 +186,9 @@ public class PaintView extends View {
                             A = nextDotX - currentDotX;
                             B = currentDotY - nextDotY;
                             dotDistance = (int) Math.sqrt(A * A + B * B);
+                            dotDistanceSum += dotDistance;
 
-                            currentLine[currentDot + 1]= letterDot.setGreenDotColor(currentLine[currentDot + 1]);
+                            currentLine[currentDot + 1] = letterDot.setGreenDotColor(currentLine[currentDot + 1]);
                         }
 
 
@@ -194,6 +200,7 @@ public class PaintView extends View {
                         if (currentDot == currentLine.length) {
                             currentLineNr++;
                             currentDot = 0;
+                            playerPathDistanceSum += pathMeasure.getLength();
                             if (currentLineNr == letterDot.dotLines.length) {
                                 toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
                                // sounds.playComplete();
@@ -207,7 +214,11 @@ public class PaintView extends View {
                                 ProfileDatabaseHelper profileDatabaseHelper = new ProfileDatabaseHelper(context);
                                 int timesCompleted = profileDatabaseHelper.getTimesCompleted(id, characters[CURRENT_CHAR]);
 
-                                profileDatabaseHelper.updateWritingProgress(id, characters[CURRENT_CHAR], timesCompleted+1, timeTaken, 0);
+                                // TODO FIX ACCURACY CALCULATION
+//                                double accuracy = ((dotDistanceSum / playerPathDistanceSum) - 1) * 100;
+
+                                profileDatabaseHelper.updateWritingProgress(id, characters[CURRENT_CHAR],
+                                        timesCompleted + 1, timeTaken, 0);
                                 booleanVariable.setBoo(true);
                                 break;
                             }
@@ -292,5 +303,6 @@ public class PaintView extends View {
         } else {
             CURRENT_CHAR++;
         }
+
     }
 }
