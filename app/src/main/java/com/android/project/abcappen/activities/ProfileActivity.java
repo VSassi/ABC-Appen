@@ -35,6 +35,12 @@ public class ProfileActivity extends AppCompatActivity {
         tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
     }
 
+    public void showDetailedStatistics(View v) {
+        Sounds sounds = new Sounds(this);
+        sounds.playPopSound();
+        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+    }
+
     public void playWritingGame(View v) {
         Sounds sounds = new Sounds(this);
         sounds.playPopSound();
