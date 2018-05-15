@@ -10,6 +10,7 @@ import com.android.project.abcappen.R;
 import com.android.project.abcappen.data.ProfileDatabaseHelper;
 import com.android.project.abcappen.services.BackgroundMusicService;
 import com.android.project.abcappen.services.Sounds;
+import com.android.project.abcappen.shared.SharedPrefManager;
 
 public class ProfileActivity extends AppCompatActivity {
     private ProfileDatabaseHelper profileDatabaseHelper;
@@ -26,10 +27,19 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvName = findViewById(R.id.tv_name);
         tvWritingStats = findViewById(R.id.tv_writing_stats);
-        //tvReadingStats = findViewById(R.id.tv_reading_stats);
 
         Intent intent = getIntent();
         tvName.setText(intent.getStringExtra("name"));
+
+        String numCompletedLetters = String.valueOf(profileDatabaseHelper.getNumberOfCompletedLetters(SharedPrefManager.getInstance(getApplicationContext()).getId()));
+        String[] letters = getResources().getStringArray(R.array.letters);
+        tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
+    }
+
+    public void showDetailedStatistics(View v) {
+        Sounds sounds = new Sounds(this);
+        sounds.playPopSound();
+        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
     }
 
     public void playWritingGame(View v) {

@@ -71,28 +71,28 @@ public class Sounds {
 
         if (sound == 1) {
 
-            soundPool.play(gitar1, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar1, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if (sound == 2) {
-            soundPool.play(gitar2, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar2, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if (sound == 3) {
-            soundPool.play(gitar3, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar3, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if (sound == 4) {
-            soundPool.play(gitar4, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar4, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if (sound == 5) {
-            soundPool.play(gitar5, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar5, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if (sound == 6){
-            soundPool.play(gitar6, 1.0f, 1.0f, 1, 0, 1.0f);
+            soundPool.play(gitar6, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if(sound==7) {
-                soundPool.play(gitar7, 1.0f, 1.0f, 1, 0, 1.0f);
+                soundPool.play(gitar7, 0.7f, 0.7f, 1, 0, 1.0f);
         }
         if(sound==8) {
-                soundPool.play(gitar8, 1.0f, 1.0f, 1, 0, 1.0f);
+                soundPool.play(gitar8, 0.7f, 0.7f, 1, 0, 1.0f);
                 sound = 0;
         }
 

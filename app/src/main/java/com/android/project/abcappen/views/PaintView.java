@@ -20,8 +20,10 @@ import java.util.ArrayList;
 
 import com.android.project.abcappen.R;
 import com.android.project.abcappen.activities.BooleanVariable;
+import com.android.project.abcappen.data.ProfileDatabaseHelper;
 import com.android.project.abcappen.letters.LetterDot;
 import com.android.project.abcappen.services.Sounds;
+import com.android.project.abcappen.shared.SharedPrefManager;
 
 /**
  * Created by martin on 2018-04-19.
@@ -55,6 +57,8 @@ public class PaintView extends View {
     private Toast toast;
 
     private String[] characters;
+
+    private long startTime;
 
     public PaintView(Context context) {
         super(context);
@@ -147,12 +151,16 @@ public class PaintView extends View {
                         currentPathLength = (int) pathMeasure.getLength();
                         sounds.playMelodySound();
 
-                        if (currentDot == 0 && pathMeasure.getLength() >= 100) {
-                            toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
-                            sounds.playFailSound();
-                            toast.show();
-                            clear();
-                            break;
+                        if (currentDot == 0) {
+                            startTime = System.currentTimeMillis();
+                            if (pathMeasure.getLength() >= 100) {
+                                toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
+                                sounds.playFailSound();
+                                toast.show();
+                                clear();
+                                break;
+                            }
+
                         }
                         if (paths.size() > currentLineNr){
                             toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
@@ -194,6 +202,14 @@ public class PaintView extends View {
                                 sounds.playLetter(characters[CURRENT_CHAR].charAt(0));
                                 toast.show();
                                 currentLineNr = 0;
+
+                                long time = System.currentTimeMillis() - startTime;
+                                int timeTaken = (int) time;
+                                String id = SharedPrefManager.getInstance(context).getId();
+                                ProfileDatabaseHelper profileDatabaseHelper = new ProfileDatabaseHelper(context);
+                                int timesCompleted = profileDatabaseHelper.getTimesCompleted(id, characters[CURRENT_CHAR]);
+
+                                profileDatabaseHelper.updateWritingProgress(id, characters[CURRENT_CHAR], timesCompleted+1, timeTaken, 0);
                                 booleanVariable.setBoo(true);
                                 break;
                             }

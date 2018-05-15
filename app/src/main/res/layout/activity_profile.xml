@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.android.project.abcappen.activities.ProfileActivity">
 
-    <include layout="@layout/base_layout" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/base_layout" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -31,6 +33,7 @@
         android:id="@+id/tv_writing_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
@@ -40,9 +43,10 @@
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:onClick="showDetailedStatistics"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="441dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_play"
