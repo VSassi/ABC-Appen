@@ -12,7 +12,7 @@ import com.android.project.abcappen.views.PaintView;
 public class GameActivity extends AppCompatActivity {
 
     private PaintView paintView;
-    private Button nextButton;
+    private Button nextButton, resetBtn;
     private Sounds sounds;
 
 
@@ -23,16 +23,19 @@ public class GameActivity extends AppCompatActivity {
         sounds = new Sounds(getApplicationContext());
         paintView = (PaintView) findViewById(R.id.paintView);
         nextButton = (Button) findViewById(R.id.nextBtn);
+        resetBtn = (Button) findViewById(R.id.resetBtn);
 
         nextButton.setVisibility(View.INVISIBLE);
+        resetBtn.setVisibility(View.INVISIBLE);
 
         paintView.getBooleanVariable().setListener(new BooleanVariable.ChangeListener() {
             @Override
             public void onChange() {
-
                 nextButton.setVisibility(View.VISIBLE);
+                resetBtn.setVisibility(View.VISIBLE);
             }
         });
+
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +43,19 @@ public class GameActivity extends AppCompatActivity {
                 paintView.nextChar();
                 paintView.clear();
                 nextButton.setVisibility(View.INVISIBLE);
+                resetBtn.setVisibility(View.INVISIBLE);
                 sounds.playPopSound();
             }
         });
 
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paintView.clear();
+                resetBtn.setVisibility(View.INVISIBLE);
+                nextButton.setVisibility(View.INVISIBLE);
+                sounds.playPopSound();
+            }
+        });
     }
 }

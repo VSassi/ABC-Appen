@@ -1993,5 +1993,3 @@ public class LetterDot {
     }
 
 }
-
-
