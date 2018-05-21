@@ -10,10 +10,8 @@ public class BooleanVariable {
 
     public void setBoo(boolean boo) {
         this.boo = boo;
-        System.out.println("boolean set");
         if (listener != null) {
             listener.onChange();
-            System.out.println("ONCHANGE");
         }
     }
 
