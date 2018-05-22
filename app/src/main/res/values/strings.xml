@@ -6,6 +6,12 @@
     <string name="nextBtn">next</string>
     <string name="nextBtnn">next letter</string>
     <string name="n_sta_bokstav">nästa Bokstav</string>
+    <string name="result">result</string>
+    <string name="resultat">resultat</string>
+    <string name="ord">ord</string>
+    <string name="recordBtn">recordBtn</string>
+    <string name="speechImage">speechImage</string>
+    <string name="speech_bg">speech_bg</string>
 
     <string-array name="letters">
         <item>A</item>

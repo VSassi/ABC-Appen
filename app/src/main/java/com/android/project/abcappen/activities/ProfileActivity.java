@@ -49,4 +49,12 @@ public class ProfileActivity extends AppCompatActivity {
         stopService(backgroundMusic);
         startActivity(new Intent(getApplicationContext(), GameActivity.class));
     }
+
+    public void playSpeechGame(View v){
+        Sounds sounds = new Sounds(this);
+        sounds.playPopSound();
+        Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
+        stopService(backgroundMusic);
+        startActivity(new Intent(getApplicationContext(), SpeechActivity.class));
+    }
 }
