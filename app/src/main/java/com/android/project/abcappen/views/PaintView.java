@@ -169,7 +169,6 @@ public class PaintView extends View {
                         }
                         if (paths.size() > currentLineNr){
                             toast = Toast.makeText(context, "Please follow the dots", Toast.LENGTH_SHORT);
-                            sounds.playFailSound();
                             toast.show();
                             clear();
                             break;
