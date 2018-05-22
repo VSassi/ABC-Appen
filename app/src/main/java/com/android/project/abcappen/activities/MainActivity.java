@@ -2,6 +2,7 @@ package com.android.project.abcappen.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView userList;
     private TextView addUser;
     private ArrayList<String> userNameList;
+    private ImageView imageViewAnim;
+    AnimationDrawable anim;
 
 
 
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.deleteDatabase(ProfileContract.DATABASE_NAME);
+
+        imageViewAnim = findViewById(R.id.imageView);
+        if (imageViewAnim==null)throw new AssertionError();
+        imageViewAnim.setBackgroundResource(R.drawable.animation_abc);
+        anim = (AnimationDrawable) imageViewAnim.getBackground();
+        anim.start();
 
 
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
@@ -51,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
         userList = findViewById(R.id.userListView);
         addUserButton = findViewById(R.id.addUserTestBtn);
-        progressButton = findViewById(R.id.framstegBtn);
+        /*progressButton = findViewById(R.id.framstegBtn);
         progressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sounds.playPopSound();
                 startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
-        });
+        });*/
         addUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         userNameList = profileDatabaseHelper.getAllProfiles();
-        adapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_list_item_1,android.R.id.text1,userNameList);
+        adapter = new ArrayAdapter<String>(this,R.layout.list_rows,R.id.textView5,userNameList);
         userList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         }else {
                             profileDatabaseHelper.addProfile(username);
                             userNameList = profileDatabaseHelper.getAllProfiles();
-                            adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, userNameList);
+                            adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.list_rows, R.id.textView5, userNameList);
                             userList.setAdapter(adapter);
                             dialog.dismiss();
                         }

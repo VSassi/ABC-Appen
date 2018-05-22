@@ -1,9 +1,11 @@
 package com.android.project.abcappen.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.project.abcappen.R;
@@ -17,11 +19,18 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvWritingStats;
     private TextView tvReadingStats;
+    private ImageView imageViewAnim;
+    AnimationDrawable anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        imageViewAnim = findViewById(R.id.imageView);
+        if (imageViewAnim==null)throw new AssertionError();
+        imageViewAnim.setBackgroundResource(R.drawable.animation_abc);
+        anim = (AnimationDrawable) imageViewAnim.getBackground();
+        anim.start();
 
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
 

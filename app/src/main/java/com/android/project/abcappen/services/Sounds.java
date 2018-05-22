@@ -3,29 +3,27 @@ package com.android.project.abcappen.services;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
-
 import com.android.project.abcappen.R;
 
-import java.util.Random;
 
 public class Sounds {
 
     private static SoundPool soundPool;
     private static int complete,pop,failOne,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
     private static int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,å,ä,ö;
-    int sound=0;
-    int fail=0;
-
-
+    private int sound=0;
+    private int fail=0;
 
     public Sounds(Context context){
 
         soundPool = new SoundPool(43, AudioManager.STREAM_MUSIC,0);
         pop = soundPool.load(context, R.raw.pop_sound,1);
+        //fail sounds
         failOne = soundPool.load(context,R.raw.fail_one,1);
         failTwo = soundPool.load(context,R.raw.fail_five_pippi,1);
         failThree = soundPool.load(context,R.raw.fail_four_pippi,1);
         complete = soundPool.load(context,R.raw.level_completed,1);
+        //dot Melody
         gitar1 = soundPool.load(context,R.raw.gitar_1,1);
         gitar2 = soundPool.load(context,R.raw.gitar_2,1);
         gitar3 = soundPool.load(context,R.raw.gitar_3,1);
@@ -34,7 +32,7 @@ public class Sounds {
         gitar6 = soundPool.load(context,R.raw.gitar_6,1);
         gitar7 = soundPool.load(context,R.raw.gitar_7,1);
         gitar8 = soundPool.load(context,R.raw.gitar_8,1);
-
+        //letters
         a = soundPool.load(context,R.raw.a_ljud,1);
         b = soundPool.load(context,R.raw.b_ljud,1);
         c = soundPool.load(context,R.raw.c_ljud,1);
@@ -101,8 +99,10 @@ public class Sounds {
     public void playFailSound(){
         fail = fail+1;
         if(fail==1) {
+            soundPool.stop(failTwo);
             soundPool.play(failThree, 1.0f, 1.0f, 1, 0, 1.0f);
         }if(fail==2){
+            soundPool.stop(failThree);
             soundPool.play(failTwo, 1.0f, 1.0f, 1, 0, 1.0f);
             fail=0;
         }
