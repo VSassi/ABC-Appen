@@ -7,10 +7,6 @@
     tools:context="com.android.project.abcappen.activities.SpeechActivity"
     tools:layout_editor_absoluteY="89dp">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/base_layout" />
-
     <TextView
         android:id="@+id/wordView"
         android:layout_width="wrap_content"
