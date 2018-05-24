@@ -4,25 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_2"
     tools:context="com.android.project.abcappen.activities.StatisticsActivity">
-
-    <include
-        android:id="@+id/include2"
-        layout="@layout/base_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="241dp"
         android:layout_height="79dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonbg"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
@@ -32,6 +23,7 @@
         android:textColor="@android:color/white"
         android:textSize="45sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,9 +31,8 @@
         android:id="@+id/tv_letter"
         android:layout_width="156dp"
         android:layout_height="51dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/buttonbg"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
@@ -51,7 +42,7 @@
         android:textColor="@android:color/holo_purple"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/include2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <TextView
@@ -117,7 +108,8 @@
         android:id="@+id/tv_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
@@ -126,14 +118,15 @@
         android:text="@string/previous_letter_stats"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="48sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_letter"
-        app:layout_constraintStart_toStartOf="@+id/include2" />
+        app:layout_constraintEnd_toStartOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
@@ -142,9 +135,8 @@
         android:text="@string/next_letter_stats"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="@+id/include2"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_letter"
-        tools:layout_editor_absoluteY="256dp" />
+        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
