@@ -6,9 +6,11 @@
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50sp"
+        android:background="@drawable/buttonbg"
         android:fontFamily="@font/sugarpunch"
-        android:text="New Text"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="30sp" />
+        android:text="Name"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="40sp" />
 </LinearLayout>

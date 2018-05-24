@@ -38,7 +38,7 @@
     <ListView
         android:id="@+id/userListView"
         android:layout_width="146dp"
-        android:layout_height="274dp"
+        android:layout_height="283dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -47,7 +47,6 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/addUserTestBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
@@ -55,15 +54,15 @@
 
     <Button
         android:id="@+id/addUserTestBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="309dp"
+        android:layout_height="63dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/buttonbg"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
         android:shadowRadius="10"

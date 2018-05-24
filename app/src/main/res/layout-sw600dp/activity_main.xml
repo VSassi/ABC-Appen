@@ -37,8 +37,8 @@
 
     <ListView
         android:id="@+id/userListView"
-        android:layout_width="196dp"
-        android:layout_height="449dp"
+        android:layout_width="224dp"
+        android:layout_height="470dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -47,29 +47,27 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63">
+        app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
 
     <Button
         android:id="@+id/addUserTestBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_width="409dp"
+        android:layout_height="104dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="52dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/buttonbg"
         android:fontFamily="@font/sugarpunch"
         android:lineSpacingExtra="8sp"
         android:shadowRadius="10"
         android:text="Lägg till Användare"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
