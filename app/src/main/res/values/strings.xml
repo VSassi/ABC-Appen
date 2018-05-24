@@ -15,6 +15,11 @@
 
     <string name="spela">SPELA</string>
 
+    <string name="previous_letter_stats">\u003c</string>
+    <string name="next_letter_stats">\u003e</string>
+
+    <string name="placeholder_string">PLACEHOLDER</string>
+
     <string-array name="letters">
         <item>A</item>
         <item>B</item>

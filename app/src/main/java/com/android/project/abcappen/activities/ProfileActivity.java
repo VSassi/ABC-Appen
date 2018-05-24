@@ -45,6 +45,18 @@ public class ProfileActivity extends AppCompatActivity {
         tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        tvName.setText(intent.getStringExtra("name"));
+
+        String numCompletedLetters = String.valueOf(profileDatabaseHelper.getNumberOfCompletedLetters(SharedPrefManager.getInstance(getApplicationContext()).getId()));
+        String[] letters = getResources().getStringArray(R.array.letters);
+        tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
+    }
+
     public void showDetailedStatistics(View v) {
         Sounds sounds = new Sounds(this);
         sounds.playPopSound();
