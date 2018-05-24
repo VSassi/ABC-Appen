@@ -1,9 +1,7 @@
 package com.android.project.abcappen.activities;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,8 +17,6 @@ public class StatisticsActivity extends AppCompatActivity {
     private ProfileDatabaseHelper profileDatabaseHelper;
     private ArrayList<LetterProgress> writingProgress;
     private String[] letters;
-    private ImageView imageViewAnim;
-    AnimationDrawable anim;
     private int lettersIdx;
     private LetterProgress letterProgress;
     private Sounds sounds;
@@ -32,12 +28,6 @@ public class StatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
-
-        imageViewAnim = findViewById(R.id.imageView);
-        if (imageViewAnim==null)throw new AssertionError();
-        imageViewAnim.setBackgroundResource(R.drawable.animation_abc);
-        anim = (AnimationDrawable) imageViewAnim.getBackground();
-        anim.start();
 
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
         String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();
