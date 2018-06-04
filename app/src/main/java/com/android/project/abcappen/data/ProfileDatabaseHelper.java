@@ -142,6 +142,28 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         return Integer.parseInt(timesCompleted);
     }
 
+    public int getCompletionTime(String profileId, String letter) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String projection[] = {ProfileContract.ProfileWritingProgress.COL_COMPLETION_TIME};
+        String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileWritingProgress.COL_FK_LETTER +
+                "=?";
+        String selectionArgs[] = {String.valueOf(profileId), letter};
+        String completionTime = "";
+
+        Cursor cursor = db.query(ProfileContract.ProfileWritingProgress.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null, null, null);
+
+        if (cursor.moveToFirst()) {
+            completionTime = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileWritingProgress.COL_COMPLETION_TIME));
+        }
+        return Integer.parseInt(completionTime);
+    }
+
     public long getNumberOfCompletedLetters(String profileId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID +

@@ -207,17 +207,23 @@ public class PaintView extends View {
                                 toast.show();
                                 currentLineNr = 0;
 
-                                long time = System.currentTimeMillis() - startTime;
-                                int timeTaken = (int) time;
+                                // Save progress
                                 String id = SharedPrefManager.getInstance(context).getId();
                                 ProfileDatabaseHelper profileDatabaseHelper = new ProfileDatabaseHelper(context);
                                 int timesCompleted = profileDatabaseHelper.getTimesCompleted(id, characters[CURRENT_CHAR]);
+                                long time = System.currentTimeMillis() - startTime;
+                                int completionTime = (int) time;
+                                int oldCompletionTime = profileDatabaseHelper
+                                        .getCompletionTime(id, characters[CURRENT_CHAR]);
+                                completionTime = completionTime < oldCompletionTime || oldCompletionTime == 0 ?
+                                        completionTime : oldCompletionTime;
 
                                 // TODO FIX ACCURACY CALCULATION
+                                // Getting weird distances not reflecting actual distance
 //                                double accuracy = ((dotDistanceSum / playerPathDistanceSum) - 1) * 100;
 
                                 profileDatabaseHelper.updateWritingProgress(id, characters[CURRENT_CHAR],
-                                        timesCompleted + 1, timeTaken, 0);
+                                        timesCompleted + 1, completionTime, 0);
                                 booleanVariable.setBoo(true);
                                 break;
                             }

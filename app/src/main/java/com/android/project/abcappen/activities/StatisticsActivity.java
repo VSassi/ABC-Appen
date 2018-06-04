@@ -51,9 +51,8 @@ public class StatisticsActivity extends AppCompatActivity {
         String completionTime = !letterProgress.getCompletionTime().equals("0") ?
                 String.valueOf(Double.parseDouble(letterProgress.getCompletionTime())/1000) : "?";
         String accuracy = !letterProgress.getAccuracy().equals("0") ?
-                letterProgress.getAccuracy() : "?";
+                letterProgress.getAccuracy() : "";
         tvTimesCompleted.setText(timesCompleted);
-//        double completionTime = Double.parseDouble(letterProgress.getCompletionTime()) / 1000;
         tvCompletionTime.setText(completionTime);
         tvAccuracy.setText(accuracy);
     }
@@ -71,7 +70,7 @@ public class StatisticsActivity extends AppCompatActivity {
         String completionTime = !letterProgress.getCompletionTime().equals("0") ?
                 String.valueOf(Double.parseDouble(letterProgress.getCompletionTime())/1000) : "?";
         String accuracy = !letterProgress.getAccuracy().equals("0") ?
-                letterProgress.getAccuracy() : "?";
+                letterProgress.getAccuracy() : "";
         tvLetter.setText(letterProgress.getLetter());
         tvTimesCompleted.setText(timesCompleted);
         tvCompletionTime.setText(completionTime);
@@ -92,7 +91,7 @@ public class StatisticsActivity extends AppCompatActivity {
         String completionTime = !letterProgress.getCompletionTime().equals("0") ?
                 String.valueOf(Double.parseDouble(letterProgress.getCompletionTime())/1000) : "?";
         String accuracy = !letterProgress.getAccuracy().equals("0") ?
-                letterProgress.getAccuracy() : "?";
+                letterProgress.getAccuracy() : "";
         tvLetter.setText(letterProgress.getLetter());
         tvTimesCompleted.setText(timesCompleted);
         tvCompletionTime.setText(completionTime);
