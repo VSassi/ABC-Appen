@@ -22,7 +22,7 @@ public class BackgroundMusicService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        backgroundPlayer = MediaPlayer.create(this, R.raw.trundle_loop);
+        backgroundPlayer = MediaPlayer.create(this, R.raw.despicable);
         backgroundPlayer.setLooping(true);
         backgroundPlayer.setVolume(100, 100);
 

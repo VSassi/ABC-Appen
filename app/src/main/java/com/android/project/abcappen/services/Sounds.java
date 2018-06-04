@@ -9,7 +9,7 @@ import com.android.project.abcappen.R;
 public class Sounds {
 
     private static SoundPool soundPool;
-    private static int complete,pop,failOne,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
+    private static int complete,pop,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
     private static int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,å,ä,ö;
     private int sound=0;
     private int fail=0;
@@ -19,10 +19,10 @@ public class Sounds {
         soundPool = new SoundPool(43, AudioManager.STREAM_MUSIC,0);
         pop = soundPool.load(context, R.raw.pop_sound,1);
         //fail sounds
-        failOne = soundPool.load(context,R.raw.fail_one,1);
         failTwo = soundPool.load(context,R.raw.fail_five_pippi,1);
         failThree = soundPool.load(context,R.raw.fail_four_pippi,1);
-        complete = soundPool.load(context,R.raw.level_completed,1);
+        //sound stage complete
+        complete = soundPool.load(context,R.raw.finished,1);
         //dot Melody
         gitar1 = soundPool.load(context,R.raw.gitar_1,1);
         gitar2 = soundPool.load(context,R.raw.gitar_2,1);

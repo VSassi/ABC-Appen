@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.project.abcappen.R;
+import com.android.project.abcappen.services.Sounds;
 import com.android.project.abcappen.words.WordImage;
 
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class SpeechActivity extends AppCompatActivity {
 
     private WordImage[] wordImages;
     private ImageView wordImage;
+
+    private Sounds sounds;
 
     private int wordIndex = 0;
 
