@@ -13,7 +13,7 @@ import com.android.project.abcappen.shared.SharedPrefManager;
 
 import java.util.ArrayList;
 
-public class StatisticsActivity extends AppCompatActivity {
+public class WritingStatisticsActivity extends AppCompatActivity {
     private ProfileDatabaseHelper profileDatabaseHelper;
     private ArrayList<LetterProgress> writingProgress;
     private String[] letters;
@@ -22,7 +22,7 @@ public class StatisticsActivity extends AppCompatActivity {
     private Sounds sounds;
 
 
-    private TextView tvName, tvLetter, tvTimesCompleted, tvCompletionTime, tvAccuracy;
+    private TextView tvName, tvLetter, tvTimesCompleted, tvCompletionTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,6 @@ public class StatisticsActivity extends AppCompatActivity {
         tvLetter = findViewById(R.id.tv_letter);
         tvTimesCompleted = findViewById(R.id.tv_times_completed);
         tvCompletionTime = findViewById(R.id.tv_completion_time);
-        tvAccuracy = findViewById(R.id.tv_accuracy);
 
         lettersIdx = 0;
         letterProgress = writingProgress.get(lettersIdx);
@@ -54,7 +53,6 @@ public class StatisticsActivity extends AppCompatActivity {
                 letterProgress.getAccuracy() : "";
         tvTimesCompleted.setText(timesCompleted);
         tvCompletionTime.setText(completionTime);
-        tvAccuracy.setText(accuracy);
     }
 
     public void nextLetterStats(View v) {
@@ -74,7 +72,6 @@ public class StatisticsActivity extends AppCompatActivity {
         tvLetter.setText(letterProgress.getLetter());
         tvTimesCompleted.setText(timesCompleted);
         tvCompletionTime.setText(completionTime);
-        tvAccuracy.setText(accuracy);
     }
 
     public void previousLetterStats(View v) {
@@ -95,6 +92,5 @@ public class StatisticsActivity extends AppCompatActivity {
         tvLetter.setText(letterProgress.getLetter());
         tvTimesCompleted.setText(timesCompleted);
         tvCompletionTime.setText(completionTime);
-        tvAccuracy.setText(accuracy);
     }
 }

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.android.project.abcappen.R;
 import com.android.project.abcappen.services.Sounds;
@@ -12,7 +13,8 @@ import com.android.project.abcappen.views.PaintView;
 public class GameActivity extends AppCompatActivity {
 
     private PaintView paintView;
-    private Button nextButton, resetBtn;
+    private Button nextButton;
+    private ImageButton resetBtn;
     private Sounds sounds;
 
 
@@ -23,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
         sounds = new Sounds(getApplicationContext());
         paintView = (PaintView) findViewById(R.id.paintView);
         nextButton = (Button) findViewById(R.id.nextBtn);
-        resetBtn = (Button) findViewById(R.id.resetBtn);
+        resetBtn = (ImageButton) findViewById(R.id.resetBtn);
 
         nextButton.setVisibility(View.INVISIBLE);
         resetBtn.setVisibility(View.INVISIBLE);

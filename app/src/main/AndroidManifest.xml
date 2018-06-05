@@ -27,8 +27,9 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".activities.ProfileActivity" />
-        <activity android:name=".activities.StatisticsActivity" />
-        <activity android:name=".activities.SpeechActivity"></activity>
+        <activity android:name=".activities.WritingStatisticsActivity" />
+        <activity android:name=".activities.SpeechActivity" />
+        <activity android:name=".activities.ReadingStatisticsActivity"></activity>
     </application>
 
 </manifest>

@@ -15,10 +15,13 @@
 
     <string name="spela">SPELA</string>
 
-    <string name="previous_letter_stats">\u003c</string>
-    <string name="next_letter_stats">\u003e</string>
+    <string name="previous">\u003c</string>
+    <string name="next">\u003e</string>
 
     <string name="placeholder_string">PLACEHOLDER</string>
+
+    <string name="writing_statistics">Skriv statistik: </string>
+    <string name="reading_statistics">Läs statistik: </string>
 
     <string-array name="letters">
         <item>S</item>

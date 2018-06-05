@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -126,13 +127,16 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
                 if (resultCode == RESULT_OK && intent != null) {
                     ArrayList<String> result = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     if (result.get(0).toLowerCase().trim().equals(wordImages[wordIndex].getName().toLowerCase().trim())) {
-                        Toast.makeText(getApplicationContext(), "Bra jobbat!", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(getApplicationContext(), "Bra jobbat!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 50);
+                        toast.show();
                         textToSpeech("Bra jobbat!");
 
-//                        String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();
-//                        int timesCompleted = profileDatabaseHelper.getTimesCompletedWords(
-//                                Integer.parseInt(profileId), wordImages[wordIndex].getName());
-//                        profileDatabaseHelper.updateReadingProgress(profileId, wordImages[wordIndex].getName(), timesCompleted);
+                        String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();
+                        int timesCompleted = profileDatabaseHelper.getTimesCompletedWords(
+                                Integer.parseInt(profileId), wordImages[wordIndex].getName());
+
+                        profileDatabaseHelper.updateReadingProgress(profileId, wordImages[wordIndex].getName(), timesCompleted+1);
 
                         wordIndex++;
                         if (wordIndex >= wordImages.length) {

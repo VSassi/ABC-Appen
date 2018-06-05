@@ -154,14 +154,14 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {String.valueOf(profileId), word};
 
         String timesCompleted = "";
-        Cursor cursor = db.query(ProfileContract.ProfileWritingProgress.TABLE_NAME,
+        Cursor cursor = db.query(ProfileContract.ProfileReadingProgress.TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,
                 null, null, null, null);
 
         if (cursor.moveToFirst()) {
-            timesCompleted = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED));
+            timesCompleted = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED));
         }
         return Integer.parseInt(timesCompleted);
     }
@@ -199,6 +199,17 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         return numCompletedLetters;
     }
 
+    public long getNumberOfCompletedWords(String profileId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = ProfileContract.ProfileReadingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED + " != 0";
+        String[] selectionArgs = {profileId};
+        long numCompletedWords = DatabaseUtils.queryNumEntries(db, ProfileContract.ProfileReadingProgress.TABLE_NAME,
+                selection, selectionArgs);
+        return numCompletedWords;
+    }
+
     public ArrayList<LetterProgress> getWritingProgress(String profileId) {
         SQLiteDatabase db = getReadableDatabase();
         String selection = ProfileContract.ProfileWritingProgress.COL_FK_PROFILE_ID + "=?";
@@ -216,6 +227,23 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
             writingProgress.add(new LetterProgress(letter, timesCompleted, completionTime, accuracy));
         }
         return writingProgress;
+    }
+
+    public ArrayList<WordProgress> getReadingProgress(String profileId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = ProfileContract.ProfileReadingProgress.COL_FK_PROFILE_ID + "=?";
+        String[] selectionArgs = {profileId};
+
+        Cursor cursor = db.query(ProfileContract.ProfileReadingProgress.TABLE_NAME, null,
+                selection, selectionArgs, null, null, null);
+        ArrayList<WordProgress> readingProgress = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            String letter = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileReadingProgress.COL_FK_WORD));
+            String timesCompleted = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED));
+            readingProgress.add(new WordProgress(letter, timesCompleted));
+        }
+        return readingProgress;
     }
 
 

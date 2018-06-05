@@ -36,13 +36,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvName = findViewById(R.id.tv_name);
         tvWritingStats = findViewById(R.id.tv_writing_stats);
+        tvReadingStats = findViewById(R.id.tv_reading_stats);
 
         Intent intent = getIntent();
         tvName.setText(intent.getStringExtra("name"));
 
         String numCompletedLetters = String.valueOf(profileDatabaseHelper.getNumberOfCompletedLetters(SharedPrefManager.getInstance(getApplicationContext()).getId()));
         String[] letters = getResources().getStringArray(R.array.letters);
-        tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
+        String numCompletedWords = String.valueOf(profileDatabaseHelper.getNumberOfCompletedWords(SharedPrefManager.getInstance(getApplicationContext()).getId()));
+        String[] words = getResources().getStringArray(R.array.words);
+        tvWritingStats.setText(getString(R.string.writing_statistics) + " " + numCompletedLetters + "/" + letters.length);
+        tvReadingStats.setText(getString(R.string.reading_statistics) + " " + numCompletedWords + "/" + words.length);
     }
 
     @Override
@@ -54,13 +58,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         String numCompletedLetters = String.valueOf(profileDatabaseHelper.getNumberOfCompletedLetters(SharedPrefManager.getInstance(getApplicationContext()).getId()));
         String[] letters = getResources().getStringArray(R.array.letters);
-        tvWritingStats.setText(numCompletedLetters + "/" + letters.length);
+        String numCompletedWords = String.valueOf(profileDatabaseHelper.getNumberOfCompletedWords(SharedPrefManager.getInstance(getApplicationContext()).getId()));
+        String[] words = getResources().getStringArray(R.array.words);
+        tvWritingStats.setText(getString(R.string.writing_statistics) + " " + numCompletedLetters + "/" + letters.length);
+        tvReadingStats.setText(getString(R.string.reading_statistics) + " " + numCompletedWords + "/" + words.length);
     }
 
-    public void showDetailedStatistics(View v) {
+    public void showDetailedWritingStatistics(View v) {
         Sounds sounds = new Sounds(this);
         sounds.playPopSound();
-        startActivity(new Intent(getApplicationContext(), StatisticsActivity.class));
+        startActivity(new Intent(getApplicationContext(), WritingStatisticsActivity.class));
+    }
+
+    public void showDetailedReadingStatistics(View v) {
+        Sounds sounds = new Sounds(this);
+        sounds.playPopSound();
+        startActivity(new Intent(getApplicationContext(), ReadingStatisticsActivity.class));
     }
 
     public void playWritingGame(View v) {

@@ -65,7 +65,7 @@ public final class ProfileContract {
 
 
     public static abstract class ProfileReadingProgress implements BaseColumns {
-        public static final String TABLE_NAME = "profile_reading_progress_level_one";
+        public static final String TABLE_NAME = "profile_reading_progress";
         public static final String COL_TIMES_COMPLETED = "times_completed";
         public static final String COL_FK_PROFILE_ID = "fk_profile_id";
         public static final String COL_FK_WORD = "fk_word";
