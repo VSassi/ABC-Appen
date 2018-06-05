@@ -26,9 +26,9 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(ProfileContract.Letters.CREATE_TABLE);
         db.execSQL(ProfileContract.Words.CREATE_TABLE);
         db.execSQL(ProfileContract.ProfileWritingProgress.CREATE_TABLE);
-        db.execSQL(ProfileContract.ProfileReadingLevelOneProgress.CREATE_TABLE);
-        db.execSQL(ProfileContract.ProfileReadingLevelTwoProgress.CREATE_TABLE);
+        db.execSQL(ProfileContract.ProfileReadingProgress.CREATE_TABLE);
         addLetters(db);
+        addWords(db);
     }
 
     @Override
@@ -37,8 +37,7 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(ProfileContract.Letters.DROP_TABLE);
         db.execSQL(ProfileContract.Words.DROP_TABLE);
         db.execSQL(ProfileContract.ProfileWritingProgress.DROP_TABLE);
-        db.execSQL(ProfileContract.ProfileReadingLevelOneProgress.DROP_TABLE);
-        db.execSQL(ProfileContract.ProfileReadingLevelTwoProgress.DROP_TABLE);
+        db.execSQL(ProfileContract.ProfileReadingProgress.DROP_TABLE);
         onCreate(db);
     }
 
@@ -81,26 +80,14 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
             db.insert(ProfileContract.ProfileWritingProgress.TABLE_NAME, null, values);
         }
 
-//        ArrayList<String> words = getAllWords(1);
-//        for (String word : words) {
-//            values = new ContentValues();
-//            values.put(ProfileContract.ProfileReadingLevelOneProgress.COL_TIMES_COMPLETED, 0);
-//            values.put(ProfileContract.ProfileReadingLevelOneProgress.COL_ACCURACY, 0);
-//            values.put(ProfileContract.ProfileReadingLevelOneProgress.COL_FK_PROFILE_ID, profileId);
-//            values.put(ProfileContract.ProfileReadingLevelOneProgress.COL_FK_WORD, word);
-//            db.insert(ProfileContract.ProfileReadingLevelOneProgress.TABLE_NAME, null, values);
-//        }
-//
-//        words = getAllWords(2);
-//        for (String word : words) {
-//            values = new ContentValues();
-//            values.put(ProfileContract.ProfileReadingLevelTwoProgress.COL_TIMES_COMPLETED, 0);
-//            values.put(ProfileContract.ProfileReadingLevelTwoProgress.COL_ACCURACY, 0);
-//            values.put(ProfileContract.ProfileReadingLevelTwoProgress.COL_FK_PROFILE_ID, profileId);
-//            values.put(ProfileContract.ProfileReadingLevelTwoProgress.COL_FK_WORD, word);
-//            db.insert(ProfileContract.ProfileReadingLevelTwoProgress.TABLE_NAME, null, values);
-//        }
-
+        ArrayList<String> words = getAllWords();
+        for (String word : words) {
+            values = new ContentValues();
+            values.put(ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED, 0);
+            values.put(ProfileContract.ProfileReadingProgress.COL_FK_PROFILE_ID, profileId);
+            values.put(ProfileContract.ProfileReadingProgress.COL_FK_WORD, word);
+            db.insert(ProfileContract.ProfileReadingProgress.TABLE_NAME, null, values);
+        }
     }
 
     public void updateWritingProgress(String profileId, String letter, int timesCompleted, int completionTime, int accuracy) {
@@ -120,6 +107,21 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
         db.update(ProfileContract.ProfileWritingProgress.TABLE_NAME, values, selection, selectionArgs);
     }
 
+    public void updateReadingProgress(String profileId, String word, int timesCompleted) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED, timesCompleted);
+
+        String selection = ProfileContract.ProfileReadingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileReadingProgress.COL_FK_WORD +
+                "=?";
+        String[] selectionArgs = {String.valueOf(profileId), word};
+
+        db.update(ProfileContract.ProfileReadingProgress.TABLE_NAME, values, selection, selectionArgs);
+    }
+
     public int getTimesCompleted(String profileId, String letter) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED};
@@ -128,6 +130,28 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
                 " AND " + ProfileContract.ProfileWritingProgress.COL_FK_LETTER +
                 "=?";
         String[] selectionArgs = {String.valueOf(profileId), letter};
+
+        String timesCompleted = "";
+        Cursor cursor = db.query(ProfileContract.ProfileWritingProgress.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            timesCompleted = cursor.getString(cursor.getColumnIndex(ProfileContract.ProfileWritingProgress.COL_TIMES_COMPLETED));
+        }
+        return Integer.parseInt(timesCompleted);
+    }
+
+    public int getTimesCompletedWords(int profileId, String word) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {ProfileContract.ProfileReadingProgress.COL_TIMES_COMPLETED};
+        String selection = ProfileContract.ProfileReadingProgress.COL_FK_PROFILE_ID +
+                "=?" +
+                " AND " + ProfileContract.ProfileReadingProgress.COL_FK_WORD +
+                "=?";
+        String[] selectionArgs = {String.valueOf(profileId), word};
 
         String timesCompleted = "";
         Cursor cursor = db.query(ProfileContract.ProfileWritingProgress.TABLE_NAME,
@@ -255,10 +279,18 @@ public class ProfileDatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void addWords(SQLiteDatabase db) {
-        // TODO
+        ContentValues values;
+        String[] words = mContext.getResources().getStringArray(R.array.words);
+
+        for (String word : words) {
+            values = new ContentValues();
+            values.put(ProfileContract.Words.COL_WORD, word);
+
+            db.insert(ProfileContract.Words.TABLE_NAME, null, values);
+        }
     }
 
-    public ArrayList<String> getAllWords(int level) {
+    public ArrayList<String> getAllWords() {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {ProfileContract.Words.COL_WORD};
         Cursor cursor = db.query(ProfileContract.Words.TABLE_NAME, projection,

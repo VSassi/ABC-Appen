@@ -2,6 +2,8 @@ package com.android.project.abcappen.activities;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.project.abcappen.R;
+import com.android.project.abcappen.data.ProfileDatabaseHelper;
+import com.android.project.abcappen.shared.SharedPrefManager;
 import com.android.project.abcappen.words.WordImage;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class SpeechActivity extends AppCompatActivity {
+    ProfileDatabaseHelper profileDatabaseHelper;
 
     private TextToSpeech tts;
 
-    private TextView resultText, wordText;
+    private TextView wordText;
 
     private WordImage[] wordImages;
     private ImageView wordImage;
@@ -33,11 +38,14 @@ public class SpeechActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech);
-        resultText = findViewById(R.id.resultView);
+
+        profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
+
         wordText = findViewById(R.id.wordView);
         wordImage = findViewById(R.id.wordImageView);
-        wordImages = new WordImage[5];
+
         initWords();
+
         wordImage.setImageResource(wordImages[wordIndex].getResources());
 
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -92,7 +100,7 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
             //text = "Content not available";
             tts.speak("Ordet finns inte", TextToSpeech.QUEUE_FLUSH, null);
         } else {
-            tts.speak(text, TextToSpeech.QUEUE_ADD, null);
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
@@ -101,7 +109,7 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Prata in i micken");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, wordImages[wordIndex].getName());
 
         try {
             startActivityForResult(intent, 100);
@@ -117,9 +125,15 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
             case 100:
                 if (resultCode == RESULT_OK && intent != null) {
                     ArrayList<String> result = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    resultText.setText(result.get(0));
                     if (result.get(0).toLowerCase().trim().equals(wordImages[wordIndex].getName().toLowerCase().trim())) {
-                        Toast.makeText(getApplicationContext(), wordImages[wordIndex].getName() + " avklarat!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Bra jobbat!", Toast.LENGTH_SHORT).show();
+                        textToSpeech("Bra jobbat!");
+
+//                        String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();
+//                        int timesCompleted = profileDatabaseHelper.getTimesCompletedWords(
+//                                Integer.parseInt(profileId), wordImages[wordIndex].getName());
+//                        profileDatabaseHelper.updateReadingProgress(profileId, wordImages[wordIndex].getName(), timesCompleted);
+
                         wordIndex++;
                         if (wordIndex >= wordImages.length) {
                             wordIndex = 0;
@@ -133,10 +147,14 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
     }
 
     public void initWords(){
-        wordImages[0] = new WordImage("Får", R.drawable.sheep);
-        wordImages[1] = new WordImage("Krokodil", R.drawable.crocodile);
-        wordImages[2] = new WordImage("Hund", R.drawable.dog);
-        wordImages[3] = new WordImage("Apa", R.drawable.monkey);
-        wordImages[4] = new WordImage("Katt", R.drawable.cat);
+        String words[] = getResources().getStringArray(R.array.words);
+        TypedArray drawables = getResources().obtainTypedArray(R.array.word_drawables);
+
+        wordImages = new WordImage[words.length];
+
+        for (int i = 0; i < words.length; i++) {
+            wordImages[i] = new WordImage(words[i], drawables.getResourceId(i, 0));
+        }
+        drawables.recycle();
     }
 }

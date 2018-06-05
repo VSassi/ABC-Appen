@@ -35,10 +35,9 @@ public final class ProfileContract {
         public static final String TABLE_NAME = "words";
         public static final String COL_WORD = "word";
 
-
         public static final String CREATE_TABLE =
-                "CREATE TABLE " + Words.TABLE_NAME + " (" +
-                        Words.COL_WORD + "TEXT PRIMARY KEY)";
+                "CREATE TABLE " + Words.TABLE_NAME + "(" +
+                        Words.COL_WORD + " TEXT PRIMARY KEY)";
         public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Words.TABLE_NAME;
     }
 
@@ -65,44 +64,22 @@ public final class ProfileContract {
     }
 
 
-    public static abstract class ProfileReadingLevelOneProgress implements BaseColumns {
+    public static abstract class ProfileReadingProgress implements BaseColumns {
         public static final String TABLE_NAME = "profile_reading_progress_level_one";
         public static final String COL_TIMES_COMPLETED = "times_completed";
-        public static final String COL_ACCURACY = "accuracy";
         public static final String COL_FK_PROFILE_ID = "fk_profile_id";
         public static final String COL_FK_WORD = "fk_word";
 
         public static final String CREATE_TABLE =
-                "CREATE TABLE " + ProfileReadingLevelOneProgress.TABLE_NAME + "(" +
-                        ProfileReadingLevelOneProgress.COL_TIMES_COMPLETED + " INTEGER, " +
-                        ProfileReadingLevelOneProgress.COL_ACCURACY + " INTEGER, " +
-                        ProfileReadingLevelOneProgress.COL_FK_PROFILE_ID + " INTEGER, " +
-                        ProfileReadingLevelOneProgress.COL_FK_WORD + " TEXT, " +
-                        "FOREIGN KEY(" + ProfileReadingLevelOneProgress.COL_FK_PROFILE_ID +
+                "CREATE TABLE " + ProfileReadingProgress.TABLE_NAME + "(" +
+                        ProfileReadingProgress.COL_TIMES_COMPLETED + " INTEGER, " +
+                        ProfileReadingProgress.COL_FK_PROFILE_ID + " INTEGER, " +
+                        ProfileReadingProgress.COL_FK_WORD + " TEXT, " +
+                        "FOREIGN KEY(" + ProfileReadingProgress.COL_FK_PROFILE_ID +
                         ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COL_PROFILE_ID + "), " +
-                        "FOREIGN KEY(" + ProfileReadingLevelOneProgress.COL_FK_WORD +
+                        "FOREIGN KEY(" + ProfileReadingProgress.COL_FK_WORD +
                         ") REFERENCES " + Words.TABLE_NAME + "(" + Words.COL_WORD + "))";
-        public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + ProfileReadingLevelOneProgress.TABLE_NAME;
-    }
-
-    public static abstract class ProfileReadingLevelTwoProgress implements BaseColumns {
-        public static final String TABLE_NAME = "profile_reading_progress_level_two";
-        public static final String COL_TIMES_COMPLETED = "times_completed";
-        public static final String COL_ACCURACY = "accuracy";
-        public static final String COL_FK_PROFILE_ID = "fk_profile_id";
-        public static final String COL_FK_WORD = "fk_word";
-
-        public static final String CREATE_TABLE =
-                "CREATE TABLE " + ProfileReadingLevelTwoProgress.TABLE_NAME + "(" +
-                        ProfileReadingLevelTwoProgress.COL_TIMES_COMPLETED + " INTEGER, " +
-                        ProfileReadingLevelTwoProgress.COL_ACCURACY + " INTEGER, " +
-                        ProfileReadingLevelTwoProgress.COL_FK_PROFILE_ID + " INTEGER, " +
-                        ProfileReadingLevelTwoProgress.COL_FK_WORD + " TEXT, " +
-                        "FOREIGN KEY(" + ProfileReadingLevelTwoProgress.COL_FK_PROFILE_ID +
-                        ") REFERENCES " + Profiles.TABLE_NAME + "(" + Profiles.COL_PROFILE_ID + "), " +
-                        "FOREIGN KEY(" + ProfileReadingLevelTwoProgress.COL_FK_WORD +
-                        ") REFERENCES " + Words.TABLE_NAME + "(" + Words.COL_WORD + "))";
-        public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + ProfileReadingLevelTwoProgress.TABLE_NAME;
+        public static final String DROP_TABLE = "DROP TABLE IF EXISTS " + ProfileReadingProgress.TABLE_NAME;
     }
 
 }
