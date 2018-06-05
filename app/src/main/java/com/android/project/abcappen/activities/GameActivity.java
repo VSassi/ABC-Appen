@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.android.project.abcappen.R;
+import com.android.project.abcappen.data.ProfileDatabaseHelper;
 import com.android.project.abcappen.services.Sounds;
+import com.android.project.abcappen.shared.SharedPrefManager;
 import com.android.project.abcappen.views.PaintView;
 
 public class GameActivity extends AppCompatActivity {

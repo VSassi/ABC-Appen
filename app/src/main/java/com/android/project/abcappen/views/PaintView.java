@@ -87,8 +87,10 @@ public class PaintView extends View {
         mPaint.setStrokeWidth(15f);
 
         characters = getResources().getStringArray(R.array.letters);
-
-
+        String profileId = SharedPrefManager.getInstance(context).getId();
+        ProfileDatabaseHelper profileDatabaseHelper = new ProfileDatabaseHelper(context);
+        long numOfCompletedLetters = profileDatabaseHelper.getNumberOfCompletedLetters(profileId);
+        CURRENT_CHAR = (int)numOfCompletedLetters;
     }
 
 
