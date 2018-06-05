@@ -2,13 +2,10 @@ package com.android.project.abcappen.letters;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.android.project.abcappen.R;
-import com.android.project.abcappen.services.Sounds;
 
 /**
  * Created by martin on 2018-05-02.
@@ -45,7 +42,6 @@ public class LetterDot {
         this.isFinished = false;
 
         switch (letter) {
-            // DONE
             case 'A':
 
                 Log.i(LETTER_DOT_TAG, "Letter A printed");
@@ -54,11 +50,10 @@ public class LetterDot {
                 dotLine1 = new Drawable[5];
                 dotLine2 = new Drawable[5];
                 dotLine3 = new Drawable[4];
-                risingDiagonalLeft();
-                fallingDiagonalRight();
+                risingDiagonalFromBottomLeft();
+                fallingDiagonalFromCenter();
                 horizontalLineCenterLow();
                 break;
-            //DONE
             case 'B':
                 Log.i(LETTER_DOT_TAG, "Letter B printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_b);
@@ -116,7 +111,6 @@ public class LetterDot {
                 //horizontalLineMiddle();
                 dotLines[1] = dotLine2;
                 dotLines[2] = dotLine3;
-
                 break;
             case 'G':
                 Log.i(LETTER_DOT_TAG, "Letter G printed");
@@ -125,7 +119,7 @@ public class LetterDot {
                 dotLine1 = new Drawable[16];
                 dotLine2 = new Drawable[5];
                 halfCircleLeft();
-                gDotFix();
+                gDots();
                 dotLines[1] = dotLine2;
                 break;
             case 'H':
@@ -142,7 +136,6 @@ public class LetterDot {
                 dotLines[2] = dotLine3;
 
                 break;
-            // DONE
             case 'I':
                 Log.i(LETTER_DOT_TAG, "Letter I printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_i);
@@ -150,7 +143,6 @@ public class LetterDot {
                 dotLine1 = new Drawable[5];
                 straightLineCenter();
                 break;
-            // DONE
             case 'J':
                 Log.i(LETTER_DOT_TAG, "Letter J printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_j);
@@ -158,7 +150,6 @@ public class LetterDot {
                 dotLine1 = new Drawable[10];
                 jDots();
                 break;
-            // DONE
             case 'K':
                 Log.i(LETTER_DOT_TAG, "Letter K printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_k);
@@ -168,9 +159,8 @@ public class LetterDot {
                 dotLine3 = new Drawable[5];
                 straightLineLeft();
                 diagonalRisingLineFromMiddleCenter();
-                diagonalFallingLineFromMiddleK();
+                diagonalFallingLineFromMiddleCenterK();
                 break;
-            // DONE
             case 'L':
                 Log.i(LETTER_DOT_TAG, "Letter L printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_l);
@@ -194,7 +184,6 @@ public class LetterDot {
                 mLinesMiddleRight();
                 mLinesRight();
                 break;
-            // DONE
             case 'N':
                 Log.i(LETTER_DOT_TAG, "Letter N printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_n);
@@ -207,9 +196,7 @@ public class LetterDot {
                 dotLine3 = straightLineRight(dotLine3);
                 dotLines[1] = dotLine2;
                 dotLines[2] = dotLine3;
-
                 break;
-            // DONE
             case 'O':
                 Log.i(LETTER_DOT_TAG, "Letter O printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_o);
@@ -226,7 +213,6 @@ public class LetterDot {
                 straightLineLeft();
                 halfCircleHigh();
                 break;
-            // DONE
             case 'Q':
                 Log.i(LETTER_DOT_TAG, "Letter Q printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_q);
@@ -234,7 +220,7 @@ public class LetterDot {
                 dotLine1 = new Drawable[17];
                 dotLine2 = new Drawable[5];
                 circle();
-                diagonalFallingLineFromMiddleQ();
+                diagonalFallingLineFromMiddleCenterQ();
                 break;
             case 'R':
                 Log.i(LETTER_DOT_TAG, "Letter R printed");
@@ -245,9 +231,8 @@ public class LetterDot {
                 dotLine3 = new Drawable[6];
                 straightLineLeft();
                 halfCircleHigh();
-                diagonalFallingLineFromMiddleR();
+                diagonalFallingLineFromMiddleCenterR();
                 break;
-            // DONE
             case 'S':
                 Log.i(LETTER_DOT_TAG, "Letter S printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_s);
@@ -255,7 +240,6 @@ public class LetterDot {
                 dotLine1 = new Drawable[21];
                 sDots();
                 break;
-            // DONE
             case 'T':
                 Log.i(LETTER_DOT_TAG, "Letter T printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_t);
@@ -266,7 +250,6 @@ public class LetterDot {
                 dotLine2 = horizontalLineHigh(dotLine2);
                 dotLines[1] = dotLine2;
                 break;
-            // DONE
             case 'U':
                 Log.i(LETTER_DOT_TAG, "Letter U printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_u);
@@ -274,7 +257,6 @@ public class LetterDot {
                 dotLine1 = new Drawable[17];
                 uDots();
                 break;
-            // DONE
             case 'V':
                 Log.i(LETTER_DOT_TAG, "Letter V printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_v);
@@ -285,7 +267,6 @@ public class LetterDot {
                 diagonalRisingLineFromMiddle();
                 dotLines[0] = dotLine1;
                 break;
-            // DONE
             case 'X':
                 Log.i(LETTER_DOT_TAG, "Letter X printed");
                 this.background = context.getResources().getDrawable(R.drawable.letter_x);
@@ -293,7 +274,7 @@ public class LetterDot {
                 dotLine1 = new Drawable[7];
                 dotLine2 = new Drawable[7];
                 dotLine1 = diagonalFallingLineFromLeft(dotLine1);
-                risingDiagonalLineFromLeft();
+                risingDiagonalLineFromBottomLeft();
                 dotLines[0] = dotLine1;
                 break;
             case 'Y':
@@ -303,7 +284,7 @@ public class LetterDot {
                 dotLine1 = new Drawable[4];
                 dotLine2 = new Drawable[4];
                 dotLine3 = new Drawable[3];
-                fallingHalfLineFromLeft();
+                fallingHalfLineFromTopLeft();
                 risingHalfLineFromCenter();
                 straightHalfLineCenter();
                 break;
@@ -315,7 +296,7 @@ public class LetterDot {
                 dotLine2 = new Drawable[7];
                 dotLine3 = new Drawable[5];
                 dotLine1 = horizontalLineHigh(dotLine1);
-                risingDiagonalLineFromLeft();
+                risingDiagonalLineFromBottomLeft();
                 dotLine3 = horizontalLineLow(dotLine3);
                 dotLines[0] = dotLine1;
                 dotLines[2] = dotLine3;
@@ -328,8 +309,8 @@ public class LetterDot {
                 dotLine2 = new Drawable[5];
                 dotLine3 = new Drawable[4];
                 dotLine4 = new Drawable[5];
-                risingDiagonalLeft();
-                fallingDiagonalRight();
+                risingDiagonalFromBottomLeft();
+                fallingDiagonalFromCenter();
                 horizontalLineCenterLow();
                 oneDotHighCenter();
                 break;
@@ -342,8 +323,8 @@ public class LetterDot {
                 dotLine3 = new Drawable[4];
                 dotLine4 = new Drawable[1];
                 dotLine5 = new Drawable[1];
-                risingDiagonalLeft();
-                fallingDiagonalRight();
+                risingDiagonalFromBottomLeft();
+                fallingDiagonalFromCenter();
                 horizontalLineCenterLow();
                 dotLine4 = oneDotsHighLeft(dotLine4);
                 dotLine5 = oneDotsHighRight(dotLine5);
@@ -409,7 +390,7 @@ public class LetterDot {
         return letter;
     }
 
-    public void risingDiagonalLeft() {
+    public void risingDiagonalFromBottomLeft() {
         dotLine1[0] = dot1;
         dotLine1[1] = dot2;
         dotLine1[2] = dot3;
@@ -433,7 +414,7 @@ public class LetterDot {
 
     }
 
-    public void fallingDiagonalRight() {
+    public void fallingDiagonalFromCenter() {
         dotLine2[0] = dot6;
         dotLine2[1] = dot7;
         dotLine2[2] = dot8;
@@ -1073,29 +1054,28 @@ public class LetterDot {
         return dotLine;
     }
 
-    // reusable
     public Drawable[] horizontalLineLow(Drawable[] dotLine){
-            dotLine[0] = dot24;
-            dotLine[1] = dot25;
-            dotLine[2] = dot26;
-            dotLine[3] = dot27;
-            dotLine[4] = dot28;
+        dotLine[0] = dot24;
+        dotLine[1] = dot25;
+        dotLine[2] = dot26;
+        dotLine[3] = dot27;
+        dotLine[4] = dot28;
 
-            diffX = 0.34f;
-            diffY = 0.64f;
+        diffX = 0.34f;
+        diffY = 0.64f;
 
-            for (Drawable d : dotLine) {
-                left = (canvas.getWidth() * diffX) - dotSize;
-                top = (canvas.getHeight() * diffY) - dotSize;
-                right = (canvas.getWidth() * diffX) + dotSize;
-                bottom = (canvas.getHeight() * diffY) + dotSize;
-                d.setBounds((int) left, (int) top, (int) right, (int) bottom);
-                diffX = diffX + 0.085f;
-            }
-            return dotLine;
+        for (Drawable d : dotLine) {
+            left = (canvas.getWidth() * diffX) - dotSize;
+            top = (canvas.getHeight() * diffY) - dotSize;
+            right = (canvas.getWidth() * diffX) + dotSize;
+            bottom = (canvas.getHeight() * diffY) + dotSize;
+            d.setBounds((int) left, (int) top, (int) right, (int) bottom);
+            diffX = diffX + 0.085f;
+        }
+        return dotLine;
     }
 
-    public void gDotFix(){
+    public void gDots(){
         dotLine1[0] = dot1;
         dotLine1[1] = dot2;
         dotLine1[2] = dot3;
@@ -1319,7 +1299,7 @@ public class LetterDot {
 
     }
 
-    public void diagonalFallingLineFromMiddleK(){
+    public void diagonalFallingLineFromMiddleCenterK(){
         dotLine3[0] = dot13;
         dotLine3[1] = dot14;
         dotLine3[2] = dot15;
@@ -1342,7 +1322,7 @@ public class LetterDot {
         }
     }
 
-    public void diagonalFallingLineFromMiddleQ(){
+    public void diagonalFallingLineFromMiddleCenterQ(){
         dotLine2[0] = dot18;
         dotLine2[1] = dot19;
         dotLine2[2] = dot20;
@@ -1365,7 +1345,7 @@ public class LetterDot {
         }
     }
 
-    public void diagonalFallingLineFromMiddleR(){
+    public void diagonalFallingLineFromMiddleCenterR(){
         dotLine3[0] = dot18;
         dotLine3[1] = dot19;
         dotLine3[2] = dot20;
@@ -1408,7 +1388,6 @@ public class LetterDot {
 
     }
 
-    // reusable
     public Drawable[] diagonalFallingLineFromLeft(Drawable[] dotLine){
         dotLine[0] = dot6;
         dotLine[1] = dot7;
@@ -1724,7 +1703,7 @@ public class LetterDot {
         }
     }
 
-    public void risingDiagonalLineFromLeft(){
+    public void risingDiagonalLineFromBottomLeft(){
         dotLine2[0] = dot13;
         dotLine2[1] = dot14;
         dotLine2[2] = dot15;
@@ -1749,7 +1728,7 @@ public class LetterDot {
         }
     }
 
-    public void fallingHalfLineFromLeft(){
+    public void fallingHalfLineFromTopLeft(){
         dotLine1[0] = dot1;
         dotLine1[1] = dot2;
         dotLine1[2] = dot3;
