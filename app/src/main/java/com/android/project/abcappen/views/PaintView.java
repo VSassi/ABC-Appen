@@ -204,6 +204,7 @@ public class PaintView extends View {
                                 toast = Toast.makeText(context, "Letter " + letterDot.getLetter() + " finished, Good job!", Toast.LENGTH_SHORT);
                                // sounds.playComplete();
                                 sounds.playLetter(characters[CURRENT_CHAR].charAt(0));
+                                sounds.playComplete();
                                 toast.show();
                                 currentLineNr = 0;
 
