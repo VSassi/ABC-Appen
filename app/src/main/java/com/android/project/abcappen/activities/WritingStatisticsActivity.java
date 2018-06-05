@@ -1,5 +1,6 @@
 package com.android.project.abcappen.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.android.project.abcappen.R;
 import com.android.project.abcappen.data.LetterProgress;
 import com.android.project.abcappen.data.ProfileDatabaseHelper;
+import com.android.project.abcappen.services.BackgroundMusicService;
 import com.android.project.abcappen.services.Sounds;
 import com.android.project.abcappen.shared.SharedPrefManager;
 
@@ -28,6 +30,9 @@ public class WritingStatisticsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
+
+        Intent backgroundMusic = new Intent(this,BackgroundMusicService.class);
+        startService(backgroundMusic);
 
         profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
         String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();

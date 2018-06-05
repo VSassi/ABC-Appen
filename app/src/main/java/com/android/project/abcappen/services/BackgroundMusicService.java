@@ -11,9 +11,7 @@ import com.android.project.abcappen.R;
 
 public class BackgroundMusicService extends Service {
 
-    private static final String TAG = null;
     MediaPlayer backgroundPlayer;
-    int lenght;
     public IBinder onBind(Intent arg0){
         return null;
     }
@@ -31,27 +29,6 @@ public class BackgroundMusicService extends Service {
 
         backgroundPlayer.start();
         return START_STICKY;
-    }
-    public IBinder onUnBind(Intent arg0){
-        return null;
-    }
-
-    public void onStop(){
-        backgroundPlayer.stop();
-        backgroundPlayer.release();
-        backgroundPlayer = null;
-
-    }
-    public void onPause(){
-
-        backgroundPlayer.pause();
-        backgroundPlayer.getCurrentPosition();
-
-    }
-    public void resumePlay(){
-
-        backgroundPlayer.seekTo(lenght);
-        backgroundPlayer.start();
     }
     @Override
     public void onDestroy() {
