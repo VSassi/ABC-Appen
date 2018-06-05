@@ -28,16 +28,12 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ProfileDatabaseHelper profileDatabaseHelper;
     ArrayAdapter<String>adapter;
-
+    AnimationDrawable anim;
     private Sounds sounds;
-    private Button addUserButton, progressButton;
+    private Button addUserButton;
     private ListView userList;
-    private TextView addUser;
     private ArrayList<String> userNameList;
     private ImageView imageViewAnim;
-    AnimationDrawable anim;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         userList = findViewById(R.id.userListView);
         addUserButton = findViewById(R.id.addUserTestBtn);
-        /*progressButton = findViewById(R.id.framstegBtn);
-        progressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sounds.playPopSound();
-                startActivity(new Intent(getApplicationContext(), GameActivity.class));
-            }
-        });*/
         addUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

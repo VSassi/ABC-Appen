@@ -34,8 +34,6 @@ public class SpeechActivity extends AppCompatActivity {
     private WordImage[] wordImages;
     private ImageView wordImage;
 
-    private Sounds sounds;
-
     private int wordIndex = 0;
 
     @Override
