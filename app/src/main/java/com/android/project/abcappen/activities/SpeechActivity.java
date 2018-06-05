@@ -49,7 +49,6 @@ public class SpeechActivity extends AppCompatActivity {
         wordImage = findViewById(R.id.wordImageView);
 
         initWords();
-
         wordImage.setImageResource(wordImages[wordIndex].getResources());
 
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -162,6 +161,12 @@ TODO: REMOVE TEXT TO SPEECH RESOURCES WHEN PAUSED
         for (int i = 0; i < words.length; i++) {
             wordImages[i] = new WordImage(words[i], drawables.getResourceId(i, 0));
         }
+
+        String profileId = SharedPrefManager.getInstance(getApplicationContext()).getId();
+        ProfileDatabaseHelper profileDatabaseHelper = new ProfileDatabaseHelper(getApplicationContext());
+        long numOfCompletedWords = profileDatabaseHelper.getNumberOfCompletedWords(profileId);
+        wordIndex = (int)numOfCompletedWords;
+
         drawables.recycle();
     }
 }
