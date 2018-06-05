@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.deleteDatabase(ProfileContract.DATABASE_NAME);
 
         imageViewAnim = findViewById(R.id.imageView);
         if (imageViewAnim==null)throw new AssertionError();
