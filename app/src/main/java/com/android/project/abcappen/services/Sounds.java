@@ -8,9 +8,9 @@ import com.android.project.abcappen.R;
 
 public class Sounds {
 
-    private static SoundPool soundPool;
-    private static int complete,pop,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
-    private static int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,å,ä,ö;
+    private SoundPool soundPool;
+    private int complete,pop,failTwo,failThree,gitar1,gitar2,gitar3,gitar4,gitar5,gitar6,gitar7,gitar8;
+    private int a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,å,ä,ö;
     private int sound=0;
     private int fail=0;
 
